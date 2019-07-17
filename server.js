@@ -11,7 +11,7 @@ app.use('/api/music', require('./routes/api/music'));
 app.use('/api/sports', require('./routes/api/sports'));
 app.use('/api/movies', require('./routes/api/movies'));
 
-app.get('/', (req, res) => res.send(`API running...`));
+app.get('/', (req, res) => res.send(`API started..`));
 
 const PORT = process.env.PORT || 5000;
 
