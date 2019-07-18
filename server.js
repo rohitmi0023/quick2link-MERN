@@ -11,10 +11,11 @@ connectDB();
 app.use(express.json({ extended: false }));
 
 //App routes
-app.use('/api/social', require('./routes/api/social'));
-app.use('/api/music', require('./routes/api/music'));
-app.use('/api/sports', require('./routes/api/sports'));
-app.use('/api/movies', require('./routes/api/movies'));
+app.use('/api/users', require('./routes/api/users'));
+// app.use('/api/social', require('./routes/api/social'));
+// app.use('/api/music', require('./routes/api/music'));
+// app.use('/api/sports', require('./routes/api/sports'));
+// app.use('/api/movies', require('./routes/api/movies'));
 
 app.get('/', (req, res) => res.send(`API started..`));
 
