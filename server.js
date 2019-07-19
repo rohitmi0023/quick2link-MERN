@@ -12,6 +12,7 @@ app.use(express.json({ extended: false }));
 
 //App routes
 app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
 // app.use('/api/social', require('./routes/api/social'));
 // app.use('/api/music', require('./routes/api/music'));
 // app.use('/api/sports', require('./routes/api/sports'));
