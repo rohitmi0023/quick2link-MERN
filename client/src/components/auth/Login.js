@@ -7,16 +7,39 @@ const Login = () => {
 		password: ''
 	});
 	const { email, password } = formData;
+
+	const onChange = e =>
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+
 	return (
 		<Fragment>
-			<h1 className='large text-primary'>Sign In</h1>
-			<p className='lead'>
-				<i className='fas fa-user' /> Sign Into Your Account
+			<p>
+				<h3>Sign In</h3>
+				Sign Into Your Account
 			</p>
 			<form>
-				<input type='email' />
-				<input type='password' />
-				<input type='submit' />
+				<div className='form-group'>
+					<input
+						type='email'
+						placeholder='Email-address'
+						name='email'
+						onChange={e => onChange(e)}
+						value={email}
+						required
+					/>
+				</div>
+				<div className='form-group'>
+					<input
+						type='password'
+						placeholder='Password'
+						name='password'
+						onChange={e => onChange(e)}
+						value={password}
+						required
+					/>
+				</div>
+				<br />
+				<input type='submit' className='btn btn-primary' value='Login' />
 			</form>
 			<p>
 				Don't have an account? <Link to='/register'>Sign Up</Link>
