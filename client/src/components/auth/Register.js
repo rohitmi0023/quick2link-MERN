@@ -1,5 +1,7 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { UncontrolledAlert, Form, FormGroup, Button } from 'reactstrap';
 
 const Register = () => {
 	const [formData, setFormData] = useState({
@@ -8,6 +10,11 @@ const Register = () => {
 		password: '',
 		password2: ''
 	});
+
+	const [handleErrors, setHandleErrors] = useState({
+		currentErrors: []
+	});
+
 	const { name, email, password, password2 } = formData;
 
 	const onChange = e =>
@@ -15,37 +22,55 @@ const Register = () => {
 
 	const onSubmit = async e => {
 		e.preventDefault();
-		alert(`User ${name} Registered`);
+		const newUser = {
+			name,
+			email,
+			password,
+			password2
+		};
+		try {
+			const config = {
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			};
+			const body = JSON.stringify(newUser);
+			await axios.post('/api/users', body, config);
+		} catch (err) {
+			const errors = err.response.data.errors;
+			const msgs = errors.map(e => e.msg);
+			setHandleErrors({ ...handleErrors, currentErrors: msgs });
+		}
 	};
 
 	return (
 		<Fragment>
-			<p>
-				<h3>Sign Up</h3>
-				Sign Up Your Account
-			</p>
-			<form className='form'>
-				<div className='form-group'>
+			<br />
+			<UncontrolledAlert color='danger'>
+				{handleErrors.currentErrors[0]}
+			</UncontrolledAlert>
+			<h3>Sign Up</h3>
+			<p> Sign Up Your Account</p>
+			<Form onSubmit={e => onSubmit(e)}>
+				<FormGroup>
 					<input
 						type='text'
 						placeholder='Name'
 						name='name'
 						value={name}
 						onChange={e => onChange(e)}
-						required
 					/>
-				</div>
-				<div className='form-group'>
+				</FormGroup>
+				<FormGroup>
 					<input
 						type='email'
 						placeholder='Email-address'
 						name='email'
 						value={email}
 						onChange={e => onChange(e)}
-						required
 					/>
-				</div>
-				<div className='form-group'>
+				</FormGroup>
+				<FormGroup>
 					<input
 						type='password'
 						placeholder='Password'
@@ -53,29 +78,22 @@ const Register = () => {
 						minLength='6'
 						value={password}
 						onChange={e => onChange(e)}
-						required
 					/>
-				</div>
-				<div className='form-group'>
+				</FormGroup>
+				<FormGroup>
 					<input
 						type='password'
 						placeholder='Confirm Password'
 						name='password2'
-						minLength='6'
 						value={password2}
 						onChange={e => onChange(e)}
-						required
 					/>
-				</div>
+				</FormGroup>
 				<br />
-				<input
-					type='submit'
-					className='btn btn-primary'
-					value='Register'
-					onSubmit={e => onSubmit(e)}
-				/>
-			</form>
+				<Button type='submit'>Register</Button>
+			</Form>
 			<p>
+				<br />
 				Already have an account? <Link to='/login'>Sign In</Link>
 			</p>
 		</Fragment>

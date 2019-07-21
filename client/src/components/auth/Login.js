@@ -13,10 +13,8 @@ const Login = () => {
 
 	return (
 		<Fragment>
-			<p>
-				<h3>Sign In</h3>
-				Sign Into Your Account
-			</p>
+			<h3>Sign In</h3>
+			<p> Sign Into Your Account</p>
 			<form>
 				<div className='form-group'>
 					<input

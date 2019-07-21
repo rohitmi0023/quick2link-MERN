@@ -2,15 +2,15 @@ import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.css';
-import Navbar from './components/layout/Navbar';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Home from './components/layout/Home';
+import NavBar from './components/layout/NavBar';
 
 const App = () => (
 	<Router>
 		<Fragment>
-			<Navbar />
+			<NavBar />
 			<section className='container'>
 				<Switch>
 					<Route exact path='/home' component={Home} />
