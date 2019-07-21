@@ -1,0 +1,2 @@
+* Responsive site 
+* User registration in database with displaying all error messages in an alert form using reactstrap
