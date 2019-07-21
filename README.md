@@ -8,4 +8,6 @@ project. Besides this, I will add more & more features in it as I learn them.
  
   > # Usage
   
-  **Work Under Progress** :sweat_smile:
+  * Create a `default.json` file in `config` folder
+  * add your's `mongoURI` and `jwtSecret` in that file
+  * Run `npm run dev` to start in development mode
