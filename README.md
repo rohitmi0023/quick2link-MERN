@@ -8,6 +8,12 @@ project. Besides this, I will add more & more features in it as I learn them.
  
   > # Usage
   
+  * Fork the repo and then clone it
+  * Run `cd quick2link` in your terminal
+  * Run `npm i`
+  * Run `cd client`
+  * Run `npm i`
+  * Run `cd ..`
   * Create a `default.json` file in `config` folder
-  * add your's `mongoURI` and `jwtSecret` in that file
+  * Add your's `mongoURI` and `jwtSecret` in that file
   * Run `npm run dev` to start in development mode
