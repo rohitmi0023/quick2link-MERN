@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { UncontrolledAlert, Form, FormGroup, Button } from 'reactstrap';
+import { Alert, Form, FormGroup, Button } from 'reactstrap';
 
 const Register = () => {
 	const [formData, setFormData] = useState({
@@ -46,9 +46,11 @@ const Register = () => {
 	return (
 		<Fragment>
 			<br />
-			<UncontrolledAlert color='danger'>
-				{handleErrors.currentErrors[0]}
-			</UncontrolledAlert>
+			<Alert color='danger'>
+				{handleErrors.currentErrors.length > 0
+					? handleErrors.currentErrors[0]
+					: `Invalid credentials will be displayed here`}
+			</Alert>
 			<h3>Sign Up</h3>
 			<p> Sign Up Your Account</p>
 			<Form onSubmit={e => onSubmit(e)}>
@@ -75,7 +77,6 @@ const Register = () => {
 						type='password'
 						placeholder='Password'
 						name='password'
-						minLength='6'
 						value={password}
 						onChange={e => onChange(e)}
 					/>

@@ -33,7 +33,7 @@ export default class NavBar extends React.Component {
 						<Nav className='ml-auto' navbar>
 							<NavItem>
 								<NavLink color='danger'>
-									<Link to='/register'>Sign-Up</Link>
+									<Link to='/register'>Sign Up</Link>
 								</NavLink>
 							</NavItem>
 							<NavItem>

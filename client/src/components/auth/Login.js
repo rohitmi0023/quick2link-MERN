@@ -13,6 +13,7 @@ const Login = () => {
 
 	return (
 		<Fragment>
+			<br />
 			<h3>Sign In</h3>
 			<p> Sign Into Your Account</p>
 			<form>
@@ -36,10 +37,10 @@ const Login = () => {
 						required
 					/>
 				</div>
-				<br />
 				<input type='submit' className='btn btn-primary' value='Login' />
 			</form>
 			<p>
+				<br />
 				Don't have an account? <Link to='/register'>Sign Up</Link>
 			</p>
 		</Fragment>
