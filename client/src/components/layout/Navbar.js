@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
 	Collapse,
@@ -7,45 +7,45 @@ import {
 	NavbarBrand,
 	Nav,
 	NavItem,
-	NavLink,
-	UncontrolledDropdown
+	NavLink
 } from 'reactstrap';
 
-export default class NavBar extends React.Component {
-	state = {
-		isOpen: false
+const NavBar = () => {
+	const [isOpen, setIsOpen] = useState({ isOpen: false });
+
+	const toggle = () => {
+		setIsOpen({ ...isOpen, isOpen: !isOpen });
 	};
 
-	toggle = () => {
-		this.setState({
-			isOpen: !this.state.isOpen
-		});
-	};
-	render() {
-		return (
-			<Fragment>
-				<Navbar color='danger' light expand='md'>
-					<NavbarBrand>
-						<Link to='/home'>Home</Link>
-					</NavbarBrand>
-					<NavbarToggler onClick={this.toggle} />
-					<Collapse isOpen={this.state.isOpen} color='primary' navbar>
-						<Nav className='ml-auto' navbar>
-							<NavItem>
-								<NavLink color='danger'>
-									<Link to='/register'>Sign Up</Link>
-								</NavLink>
-							</NavItem>
-							<NavItem>
-								<NavLink>
-									<Link to='/login'>Log In</Link>
-								</NavLink>
-							</NavItem>
-							<UncontrolledDropdown nav inNavbar />
-						</Nav>
-					</Collapse>
-				</Navbar>
-			</Fragment>
-		);
-	}
-}
+	return (
+		<Fragment>
+			<Navbar color='danger' light expand='md'>
+				<NavbarBrand>
+					<Link to='/'>Quick2Link</Link>
+				</NavbarBrand>
+				<NavbarToggler onClick={e => toggle(e)} />
+				<Collapse isOpen={isOpen} color='primary' navbar>
+					<Nav className='ml-auto' navbar>
+						<NavItem>
+							<NavLink color='danger'>
+								<Link to='/home'>Home</Link>
+							</NavLink>
+						</NavItem>
+						<NavItem>
+							<NavLink color='danger'>
+								<Link to='/register'>Sign Up</Link>
+							</NavLink>
+						</NavItem>
+						<NavItem>
+							<NavLink>
+								<Link to='/login'>Log In</Link>
+							</NavLink>
+						</NavItem>
+					</Nav>
+				</Collapse>
+			</Navbar>
+		</Fragment>
+	);
+};
+
+export default NavBar;

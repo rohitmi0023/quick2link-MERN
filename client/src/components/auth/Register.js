@@ -1,7 +1,8 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Alert, Form, FormGroup, Button } from 'reactstrap';
+import { Alert, Form, FormGroup, Button, Input, Col, Row } from 'reactstrap';
+import PasswordMask from 'react-password-mask';
 
 const Register = () => {
 	const [formData, setFormData] = useState({
@@ -35,7 +36,9 @@ const Register = () => {
 				}
 			};
 			const body = JSON.stringify(newUser);
-			await axios.post('/api/users', body, config);
+			const res = await axios.post('/api/users', body, config);
+			alert('User registered successfully!');
+			console.log(res.data.token);
 		} catch (err) {
 			const errors = err.response.data.errors;
 			const msgs = errors.map(e => e.msg);
@@ -54,44 +57,59 @@ const Register = () => {
 			<h3>Sign Up</h3>
 			<p> Sign Up Your Account</p>
 			<Form onSubmit={e => onSubmit(e)}>
-				<FormGroup>
-					<input
-						type='text'
-						placeholder='Name'
-						name='name'
-						value={name}
-						onChange={e => onChange(e)}
-					/>
-				</FormGroup>
-				<FormGroup>
-					<input
-						type='email'
-						placeholder='Email-address'
-						name='email'
-						value={email}
-						onChange={e => onChange(e)}
-					/>
-				</FormGroup>
-				<FormGroup>
-					<input
-						type='password'
-						placeholder='Password'
-						name='password'
-						value={password}
-						onChange={e => onChange(e)}
-					/>
-				</FormGroup>
-				<FormGroup>
-					<input
-						type='password'
-						placeholder='Confirm Password'
-						name='password2'
-						value={password2}
-						onChange={e => onChange(e)}
-					/>
-				</FormGroup>
+				<Row form>
+					<Col md={5}>
+						<FormGroup>
+							<Input
+								type='text'
+								placeholder='Name'
+								name='name'
+								value={name}
+								onChange={e => onChange(e)}
+							/>
+						</FormGroup>
+					</Col>
+					<Col md={5}>
+						<FormGroup>
+							<Input
+								type='email'
+								placeholder='Email'
+								name='email'
+								value={email}
+								onChange={e => onChange(e)}
+							/>
+						</FormGroup>
+					</Col>
+				</Row>
 				<br />
-				<Button type='submit'>Register</Button>
+				<Row form>
+					<Col md={5}>
+						<FormGroup>
+							<PasswordMask
+								type='password'
+								id='password'
+								placeholder='Password'
+								name='password'
+								value={password}
+								onChange={e => onChange(e)}
+							/>
+						</FormGroup>
+					</Col>
+					<Col md={5}>
+						<FormGroup>
+							<PasswordMask
+								type='password'
+								id='password2'
+								placeholder='Confirm Password'
+								name='password2'
+								value={password2}
+								onChange={e => onChange(e)}
+							/>
+						</FormGroup>
+					</Col>
+				</Row>
+				<br />
+				<Button>Register</Button>
 			</Form>
 			<p>
 				<br />
