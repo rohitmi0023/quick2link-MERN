@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Alert, Form, FormGroup, Button, Input, Col, Row } from 'reactstrap';
 import PasswordMask from 'react-password-mask';
-import NavBar from '../layout/NavBar';
 
-const Register = ({ history }) => {
+const Register = () => {
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -40,7 +39,6 @@ const Register = ({ history }) => {
 			const res = await axios.post('/api/users', body, config);
 			alert('User registered successfully!');
 			console.log(res.data.token);
-			history.push('/home');
 		} catch (err) {
 			const errors = err.response.data.errors;
 			const msgs = errors.map(e => e.msg);
@@ -50,7 +48,6 @@ const Register = ({ history }) => {
 
 	return (
 		<Fragment>
-			<NavBar />
 			<br />
 			<Alert color='danger'>
 				{handleErrors.currentErrors.length > 0

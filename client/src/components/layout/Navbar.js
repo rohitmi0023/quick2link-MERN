@@ -28,6 +28,11 @@ const NavBar = () => {
 					<Nav className='ml-auto' navbar>
 						<NavItem>
 							<NavLink color='danger'>
+								<Link to='/home'>Home</Link>
+							</NavLink>
+						</NavItem>
+						<NavItem>
+							<NavLink color='danger'>
 								<Link to='/register'>Sign Up</Link>
 							</NavLink>
 						</NavItem>

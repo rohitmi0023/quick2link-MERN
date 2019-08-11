@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import { Form, FormGroup, Button, Alert, Input, Col, Row } from 'reactstrap';
 import axios from 'axios';
 import PasswordMask from 'react-password-mask';
-import NavBar from '../layout/NavBar';
 
-const Login = ({ history }) => {
+const Login = props => {
 	const [formData, setFormData] = useState({
 		email: '',
 		password: ''
@@ -34,9 +33,11 @@ const Login = ({ history }) => {
 			};
 			const body = JSON.stringify(userCheck);
 			const res = await axios.post('/api/auth', body, config);
+			// alert('User logged in successfully');
 			console.log(res);
-			localStorage.setItem('token', res.data.data.token);
-			history.push('/home');
+			console.log(res.data.token);
+			console.log(props);
+			props.history.push('/login');
 		} catch (err) {
 			const errors = err.response.data.errors;
 			const msgs = errors.map(e => e.msg);
@@ -46,7 +47,6 @@ const Login = ({ history }) => {
 
 	return (
 		<Fragment>
-			<NavBar />
 			<br />
 			<Alert color='danger'>
 				{handleErrors.currentErrors.length > 0
