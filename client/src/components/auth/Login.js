@@ -33,11 +33,8 @@ const Login = props => {
 			};
 			const body = JSON.stringify(userCheck);
 			const res = await axios.post('/api/auth', body, config);
-			// alert('User logged in successfully');
-			console.log(res);
-			console.log(res.data.token);
-			console.log(props);
-			props.history.push('/login');
+			localStorage.setItem('token', `${res.data.token}`);
+			props.history.push('/home');
 		} catch (err) {
 			const errors = err.response.data.errors;
 			const msgs = errors.map(e => e.msg);

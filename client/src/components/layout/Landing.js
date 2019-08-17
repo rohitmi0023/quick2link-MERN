@@ -5,7 +5,7 @@ const Landing = () => {
 	return (
 		<Fragment>
 			<br />
-			<h3>Welcome to our website!</h3>
+			<h3>Welcome to Quick2Link!</h3>
 		</Fragment>
 	);
 };

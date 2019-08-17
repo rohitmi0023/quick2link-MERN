@@ -1,13 +1,27 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import Axios from 'axios';
 
-const Home = props => {
-	return (
-		<Fragment>
-			<br />
-			{console.log(props)}
-			<h3>This page will be accessed by registered users only !</h3>
-		</Fragment>
-	);
+const Home = () => {
+	const token = localStorage.getItem('token');
+	let isAuth;
+	if (token) {
+		isAuth = true;
+	} else {
+		isAuth = false;
+	}
+	// try {
+	// 	const config = {
+	// 		headers: {
+	// 			'x-auth-token': `${token}`
+	// 		}
+	// 	};
+	// 	Axios.get('/api/auth', config);
+	// } catch (err) {
+	// 	const errors = err.response;
+	// 	console.log(errors);
+	// }
+	return <Fragment>{isAuth ? <h1>Hello </h1> : <Redirect to='/' />}</Fragment>;
 };
 
 export default Home;

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Alert, Form, FormGroup, Button, Input, Col, Row } from 'reactstrap';
 import PasswordMask from 'react-password-mask';
 
-const Register = () => {
+const Register = props => {
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -36,16 +36,14 @@ const Register = () => {
 				}
 			};
 			const body = JSON.stringify(newUser);
-			const res = await axios.post('/api/users', body, config);
-			alert('User registered successfully!');
-			console.log(res.data.token);
+			await axios.post('/api/users', body, config);
+			props.history.push('/login');
 		} catch (err) {
 			const errors = err.response.data.errors;
 			const msgs = errors.map(e => e.msg);
 			setHandleErrors({ ...handleErrors, currentErrors: msgs });
 		}
 	};
-
 	return (
 		<Fragment>
 			<br />
