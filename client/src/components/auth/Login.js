@@ -1,8 +1,9 @@
 import React, { useState, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Form, FormGroup, Button, Alert, Input, Col, Row } from 'reactstrap';
 import axios from 'axios';
 import PasswordMask from 'react-password-mask';
+import NavBar from '../layout/NavBar';
 
 const Login = props => {
 	const [formData, setFormData] = useState({
@@ -21,6 +22,7 @@ const Login = props => {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
+		console.log(props);
 		const userCheck = {
 			email,
 			password
@@ -33,56 +35,63 @@ const Login = props => {
 			};
 			const body = JSON.stringify(userCheck);
 			const res = await axios.post('/api/auth', body, config);
-			localStorage.setItem('token', `${res.data.token}`);
+			const token = localStorage.setItem('token', `${res.data.token}`);
+			if (token) props.isAuth = true;
 			props.history.push('/home');
 		} catch (err) {
-			const errors = err.response.data.errors;
-			const msgs = errors.map(e => e.msg);
-			setHandleErrors({ ...handleErrors, currentErrors: msgs });
+			console.log(err);
+			if (err.response) {
+				const errors = err.response.data.errors;
+				const msgs = errors.map(e => e.msg);
+				setHandleErrors({ ...handleErrors, currentErrors: msgs });
+			}
 		}
 	};
 
 	return (
 		<Fragment>
-			<br />
-			<Alert color='danger'>
-				{handleErrors.currentErrors.length > 0
-					? handleErrors.currentErrors[0]
-					: `Invalid credentials will be displayed here`}
-			</Alert>
-			<h3>Sign In</h3>
-			<p> Sign Into Your Account</p>
-			<Form onSubmit={e => handleSubmit(e)}>
-				<Row form>
-					<Col md={5}>
-						<FormGroup>
-							<Input
-								type='email'
-								placeholder='Email-address'
-								name='email'
-								onChange={e => onChange(e)}
-								value={email}
-							/>
-						</FormGroup>
-					</Col>
-					<Col md={5}>
-						<FormGroup>
-							<PasswordMask
-								type='password'
-								placeholder='Password'
-								name='password'
-								onChange={e => onChange(e)}
-								value={password}
-							/>
-						</FormGroup>
-					</Col>
-				</Row>
-				<Button>Login</Button>
-			</Form>
-			<p>
+			<NavBar />
+			<div className='container'>
 				<br />
-				Don't have an account? <Link to='/register'>Sign Up</Link>
-			</p>
+				<Alert color='danger'>
+					{handleErrors.currentErrors.length > 0
+						? handleErrors.currentErrors[0]
+						: `Invalid credentials will be displayed here`}
+				</Alert>
+				<h3>Sign In</h3>
+				<p> Sign Into Your Account</p>
+				<Form onSubmit={e => handleSubmit(e)}>
+					<Row form>
+						<Col md={5}>
+							<FormGroup>
+								<Input
+									type='email'
+									placeholder='Email-address'
+									name='email'
+									onChange={e => onChange(e)}
+									value={email}
+								/>
+							</FormGroup>
+						</Col>
+						<Col md={5}>
+							<FormGroup>
+								<PasswordMask
+									type='password'
+									placeholder='Password'
+									name='password'
+									onChange={e => onChange(e)}
+									value={password}
+								/>
+							</FormGroup>
+						</Col>
+					</Row>
+					<Button>Login</Button>
+				</Form>
+				<p>
+					<br />
+					Don't have an account? <Link to='/register'>Sign Up</Link>
+				</p>
+			</div>
 		</Fragment>
 	);
 };

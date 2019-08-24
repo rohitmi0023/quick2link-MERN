@@ -1,29 +1,77 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import NavBar from './components/layout/NavBar';
 import Landing from './components/layout/Landing';
 import Home from './components/auth/protectedRoutes/Home';
-import Forbidden from './components/layout/layout/Forbidden';
+import Forbidden from './components/layout/Forbidden';
+import Social from './components/auth/protectedRoutes/Social';
+import Sports from './components/auth/protectedRoutes/Sports';
+import Music from './components/auth/protectedRoutes/Music';
+import Movies from './components/auth/protectedRoutes/Movies';
+import Logout from './components/auth/Logout';
 
-const App = () => (
-	<Fragment>
-		<Router>
-			<NavBar />
-			<section className='container'>
+const App = () => {
+	const [isAuth, setIsAuth] = useState(false);
+	useEffect(() => {
+		let token = localStorage.getItem('token');
+		if (token) {
+			setIsAuth(true);
+		}
+	}, [isAuth]);
+
+	return (
+		<Fragment>
+			<Router>
 				<Switch>
 					<Route exact path='/' component={Landing} />
-					<Route exact path='/home' component={Home} />
-					<Route exact path='/register' component={Register} />
-					<Route exact path='/login' component={Login} />
+					<Route
+						exact
+						path='/register'
+						render={props => <Register {...props} isAuth={isAuth} />}
+					/>
+					<Route
+						exact
+						path='/home'
+						render={props => <Home {...props} isAuth={isAuth} />}
+					/>
+					<Route
+						exact
+						path='/login'
+						render={props => <Login {...props} isAuth={isAuth} />}
+					/>
+					<Route
+						exact
+						path='/social'
+						render={props => <Social {...props} isAuth={isAuth} />}
+					/>
+					<Route
+						exact
+						path='/sports'
+						render={props => <Sports {...props} isAuth={isAuth} />}
+					/>
+					<Route
+						exact
+						path='/music'
+						render={props => <Music {...props} isAuth={isAuth} />}
+					/>
+					<Route
+						exact
+						path='/movies'
+						render={props => <Movies {...props} isAuth={isAuth} />}
+					/>
+					<Route
+						exact
+						path='/logout'
+						render={props => <Logout {...props} isAuth={isAuth} />}
+					/>
 					<Route exact path='/forbidden' component={Forbidden} />
 				</Switch>
-			</section>
-		</Router>
-	</Fragment>
-);
+			</Router>
+		</Fragment>
+	);
+};
 
 export default App;

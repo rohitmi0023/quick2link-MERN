@@ -1,51 +1,29 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import {
-	Collapse,
-	Navbar,
-	NavbarToggler,
-	NavbarBrand,
-	Nav,
-	NavItem,
-	NavLink
-} from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
 const NavBar = () => {
-	const [isOpen, setIsOpen] = useState({ isOpen: false });
-
-	const toggle = () => {
-		setIsOpen({ ...isOpen, isOpen: !isOpen });
-	};
-
-	return (
-		<Fragment>
-			<Navbar color='danger' light expand='md'>
-				<NavbarBrand>
-					<Link to='/'>Quick2Link</Link>
-				</NavbarBrand>
-				<NavbarToggler onClick={e => toggle(e)} />
-				<Collapse isOpen={isOpen} color='primary' navbar>
-					<Nav className='ml-auto' navbar>
-						<NavItem>
-							<NavLink color='danger'>
-								<Link to='/home'>Home</Link>
-							</NavLink>
-						</NavItem>
-						<NavItem>
-							<NavLink color='danger'>
-								<Link to='/register'>Sign Up</Link>
-							</NavLink>
-						</NavItem>
-						<NavItem>
-							<NavLink>
-								<Link to='/login'>Log In</Link>
-							</NavLink>
-						</NavItem>
-					</Nav>
-				</Collapse>
-			</Navbar>
-		</Fragment>
+	const guestLinks = (
+		<Navbar color='primary' light expand='md'>
+			<NavbarBrand>
+				<Link to='/'>Quick2Link</Link>
+			</NavbarBrand>
+			<Nav className='ml-auto' navbar>
+				<NavItem className='navItem'>
+					<NavLink>
+						<Link to='/login'>Log In</Link>
+					</NavLink>
+				</NavItem>
+				<NavItem>
+					<NavLink>
+						<Link to='/register'>Sign Up</Link>
+					</NavLink>
+				</NavItem>
+			</Nav>
+		</Navbar>
 	);
+
+	return <Fragment>{guestLinks}</Fragment>;
 };
 
 export default NavBar;
