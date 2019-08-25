@@ -1,3 +1,1 @@
-* Responsive site 
-* Redirect to home page after successful LogIn/SignUp 
-* Making the home route a protected one so that only authenticated users can visit it
+* Responsive Navbar i.e. compatible on all devices. 

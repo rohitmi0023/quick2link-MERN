@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Form, FormGroup, Button, Alert, Input, Col, Row } from 'reactstrap';
 import axios from 'axios';
 import PasswordMask from 'react-password-mask';

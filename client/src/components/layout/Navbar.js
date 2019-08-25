@@ -10,13 +10,13 @@ const NavBar = () => {
 			</NavbarBrand>
 			<Nav className='ml-auto' navbar>
 				<NavItem className='navItem'>
-					<NavLink>
-						<Link to='/login'>Log In</Link>
+					<NavLink tag={Link} to='/login'>
+						Log In
 					</NavLink>
 				</NavItem>
 				<NavItem>
-					<NavLink>
-						<Link to='/register'>Sign Up</Link>
+					<NavLink tag={Link} to='/register'>
+						Sign Up
 					</NavLink>
 				</NavItem>
 			</Nav>
