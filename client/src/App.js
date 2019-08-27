@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import './App.css';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Landing from './components/layout/Landing';
@@ -12,6 +11,16 @@ import Sports from './components/auth/protectedRoutes/Sports';
 import Music from './components/auth/protectedRoutes/Music';
 import Movies from './components/auth/protectedRoutes/Movies';
 import Logout from './components/auth/Logout';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	faCoffee,
+	faCheckSquare,
+	faSignOutAlt
+} from '@fortawesome/free-solid-svg-icons';
+
+library.add(faCoffee, faCheckSquare, faSignOutAlt);
 
 const App = () => {
 	const [isAuth, setIsAuth] = useState(false);
