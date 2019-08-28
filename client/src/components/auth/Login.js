@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Form, FormGroup, Button, Alert, Input, Col, Row } from 'reactstrap';
 import axios from 'axios';
 import NavBar from '../layout/NavBar';
-import PropTypes from 'prop-types';
 
 const Login = props => {
 	const [formData, setFormData] = useState({
