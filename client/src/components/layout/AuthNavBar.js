@@ -18,8 +18,8 @@ const AuthNavBar = () => {
 		paddingRight: '25px'
 	};
 	const logOutIcon = {
-		cssFloat: 'right',
-		fontSize: '20px'
+		fontSize: '20px',
+		color: 'red'
 	};
 	const [collapsed, setIsCollapsed] = useState(true);
 	const toggleNavbar = () => {
@@ -28,74 +28,72 @@ const AuthNavBar = () => {
 	const authLinks = (
 		<Fragment>
 			<Navbar color='primary' light expand='md'>
+				<NavbarToggler onClick={e => toggleNavbar(e)} className='mr-2' />
 				<NavbarBrand
-					className='mr-auto'
+					className='ml-2'
 					tag={Link}
 					to='/home'
 					className='nav-link'
-					activeclassname='active'
 				>
 					Quick2Link
 				</NavbarBrand>
-				<NavbarToggler onClick={e => toggleNavbar(e)} className='mr-2' />
 				<Collapse isOpen={!collapsed} navbar>
-					<Nav className='ml-auto' navbar>
+					<Nav navbar>
 						<NavItem>
 							<NavLink
+								className='nav-link'
 								style={navLinkIcon}
 								tag={Link}
-								to='/Social'
-								className='nav-link'
-								activeclassname='active'
+								to='/social'
 							>
 								Social
 							</NavLink>
 						</NavItem>
 						<NavItem>
 							<NavLink
+								className='nav-link'
 								style={navLinkIcon}
 								tag={Link}
 								to='/movies'
-								className='nav-link'
-								activclassname='active'
 							>
 								Movies
 							</NavLink>
 						</NavItem>
 						<NavItem>
 							<NavLink
-								style={navLinkIcon}
+								className='nav-link'
 								tag={Link}
 								to='/sports'
-								className='nav-link'
-								activeclassname='active'
+								style={navLinkIcon}
 							>
 								Sports
 							</NavLink>
 						</NavItem>
 						<NavItem>
 							<NavLink
-								style={navLinkIcon}
+								className='nav-link'
 								tag={Link}
 								to='/music'
-								className='nav-link'
-								activeclassname='active'
+								style={navLinkIcon}
 							>
 								Music
 							</NavLink>
 						</NavItem>
 					</Nav>
 				</Collapse>
+				<Nav>
+					<NavItem>
+						<NavLink
+							className='nav-link'
+							style={logOutIcon}
+							tag={Link}
+							to='/logout'
+						>
+							Logout
+						</NavLink>
+					</NavItem>
+				</Nav>
 			</Navbar>
-			<NavLink
-				style={logOutIcon}
-				tag={Link}
-				to='/logout'
-				className='nav-link'
-				activeclassname='active'
-			>
-				Logout
-			</NavLink>
 		</Fragment>
 	);
 	return <Fragment>{authLinks}</Fragment>;

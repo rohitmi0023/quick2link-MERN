@@ -2,8 +2,8 @@ import React, { useState, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Alert, Form, FormGroup, Button, Input, Col, Row } from 'reactstrap';
-import PasswordMask from 'react-password-mask';
 import NavBar from '../layout/NavBar';
+import PropTypes from 'prop-types';
 
 const Register = props => {
 	const [formData, setFormData] = useState({
@@ -89,7 +89,7 @@ const Register = props => {
 					<Row form>
 						<Col md={5}>
 							<FormGroup>
-								<PasswordMask
+								<Input
 									type='password'
 									id='password'
 									placeholder='Password'
@@ -101,7 +101,7 @@ const Register = props => {
 						</Col>
 						<Col md={5}>
 							<FormGroup>
-								<PasswordMask
+								<Input
 									type='password'
 									id='password2'
 									placeholder='Confirm Password'

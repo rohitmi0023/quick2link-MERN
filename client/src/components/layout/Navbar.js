@@ -24,16 +24,16 @@ const NavBar = () => {
 	const guestLinks = (
 		<Fragment>
 			<Navbar color='primary' light expand='md'>
+				<NavbarToggler onClick={e => toggleNavbar(e)} className='mr-2' />
 				<NavbarBrand
 					className='mr-auto'
 					tag={Link}
-					to='/home'
+					to='/'
 					className='nav-link'
 					activeclassname='active'
 				>
 					Quick2Link
 				</NavbarBrand>
-				<NavbarToggler onClick={e => toggleNavbar(e)} className='mr-2' />
 				<Collapse isOpen={!collapsed} navbar>
 					<Nav className='ml-auto' navbar>
 						<NavItem className='navItem'>
