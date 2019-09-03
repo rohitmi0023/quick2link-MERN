@@ -23,7 +23,7 @@ const NavBar = () => {
 	};
 	const guestLinks = (
 		<Fragment>
-			<Navbar color='primary' light expand='md'>
+			<Navbar light expand='md'>
 				<NavbarToggler onClick={e => toggleNavbar(e)} className='mr-2' />
 				<NavbarBrand
 					className='mr-auto'

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import Landing from './components/layout/Landing';
+import Landing from './components/styles/Landing/Landing';
 import Home from './components/auth/protectedRoutes/Home';
 import Forbidden from './components/layout/Forbidden';
 import Social from './components/auth/protectedRoutes/Social';
@@ -30,55 +30,61 @@ const App = () => {
 			setIsAuth(true);
 		}
 	}, [isAuth]);
+	let bg = require('./components/styles/Landing/bg.jpg');
+	const background = {
+		backgroundImage: 'url(' + bg + ')'
+	};
 
 	return (
 		<Fragment>
-			<Router>
-				<Switch>
-					<Route exact path='/' component={Landing} />
-					<Route
-						exact
-						path='/register'
-						render={props => <Register {...props} isAuth={isAuth} />}
-					/>
-					<Route
-						exact
-						path='/home'
-						render={props => <Home {...props} isAuth={isAuth} />}
-					/>
-					<Route
-						exact
-						path='/login'
-						render={props => <Login {...props} isAuth={isAuth} />}
-					/>
-					<Route
-						exact
-						path='/social'
-						render={props => <Social {...props} isAuth={isAuth} />}
-					/>
-					<Route
-						exact
-						path='/sports'
-						render={props => <Sports {...props} isAuth={isAuth} />}
-					/>
-					<Route
-						exact
-						path='/music'
-						render={props => <Music {...props} isAuth={isAuth} />}
-					/>
-					<Route
-						exact
-						path='/movies'
-						render={props => <Movies {...props} isAuth={isAuth} />}
-					/>
-					<Route
-						exact
-						path='/logout'
-						render={props => <Logout {...props} isAuth={isAuth} />}
-					/>
-					<Route exact path='/forbidden' component={Forbidden} />
-				</Switch>
-			</Router>
+			<div style={background}>
+				<Router>
+					<Switch>
+						<Route exact path='/' component={Landing} />
+						<Route
+							exact
+							path='/register'
+							render={props => <Register {...props} isAuth={isAuth} />}
+						/>
+						<Route
+							exact
+							path='/home'
+							render={props => <Home {...props} isAuth={isAuth} />}
+						/>
+						<Route
+							exact
+							path='/login'
+							render={props => <Login {...props} isAuth={isAuth} />}
+						/>
+						<Route
+							exact
+							path='/social'
+							render={props => <Social {...props} isAuth={isAuth} />}
+						/>
+						<Route
+							exact
+							path='/sports'
+							render={props => <Sports {...props} isAuth={isAuth} />}
+						/>
+						<Route
+							exact
+							path='/music'
+							render={props => <Music {...props} isAuth={isAuth} />}
+						/>
+						<Route
+							exact
+							path='/movies'
+							render={props => <Movies {...props} isAuth={isAuth} />}
+						/>
+						<Route
+							exact
+							path='/logout'
+							render={props => <Logout {...props} isAuth={isAuth} />}
+						/>
+						<Route exact path='/forbidden' component={Forbidden} />
+					</Switch>
+				</Router>
+			</div>
 		</Fragment>
 	);
 };
