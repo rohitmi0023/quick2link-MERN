@@ -11,6 +11,7 @@ import Sports from './components/auth/protectedRoutes/Sports';
 import Music from './components/auth/protectedRoutes/Music';
 import Movies from './components/auth/protectedRoutes/Movies';
 import Logout from './components/auth/Logout';
+import './App.css'
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -30,14 +31,9 @@ const App = () => {
 			setIsAuth(true);
 		}
 	}, [isAuth]);
-	let bg = require('./components/styles/Landing/bg.jpg');
-	const background = {
-		backgroundImage: 'url(' + bg + ')'
-	};
 
 	return (
 		<Fragment>
-			<div style={background}>
 				<Router>
 					<Switch>
 						<Route exact path='/' component={Landing} />
@@ -84,7 +80,6 @@ const App = () => {
 						<Route exact path='/forbidden' component={Forbidden} />
 					</Switch>
 				</Router>
-			</div>
 		</Fragment>
 	);
 };
