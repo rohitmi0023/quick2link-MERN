@@ -1,0 +1,20 @@
+.linkItem {
+	display: inline-block;
+}
+
+.linkItem::after {
+	content: '';
+	display: block;
+	width: 0%;
+	max-width: 100px;
+	height: 2px;
+	background: red;
+	transition: width 0.3s;
+}
+
+.linkItem:hover::after {
+	width: 100%;
+	max-width: 100px;
+	transition: width 0.3s;
+	font-weight: 900;
+}

@@ -10,11 +10,12 @@ import {
 	NavLink
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import './AuthNavBar.css';
 
 const AuthNavBar = () => {
 	const navLinkIcon = {
 		fontSize: '20px',
-		paddingLeft: '25px',
+		paddingLeft: '5px',
 		paddingRight: '25px'
 	};
 	const logOutIcon = {
@@ -27,54 +28,54 @@ const AuthNavBar = () => {
 	};
 	const authLinks = (
 		<Fragment>
-			<Navbar color='primary' light expand='md'>
+			<Navbar light expand='md'>
 				<NavbarToggler onClick={e => toggleNavbar(e)} className='mr-2' />
 				<NavbarBrand
-					className='ml-2'
+					className='mr-auto linkItem'
 					tag={Link}
 					to='/home'
-					className='nav-link'
+					style={navLinkIcon}
 				>
 					Quick2Link
 				</NavbarBrand>
 				<Collapse isOpen={!collapsed} navbar>
-					<Nav navbar>
-						<NavItem>
+					<Nav className='ml-auto' navbar>
+						<NavItem className='navItem'>
 							<NavLink
-								className='nav-link'
 								style={navLinkIcon}
 								tag={Link}
 								to='/social'
+								className='linkItem'
 							>
 								Social
 							</NavLink>
 						</NavItem>
-						<NavItem>
+						<NavItem className='navItem'>
 							<NavLink
-								className='nav-link'
 								style={navLinkIcon}
 								tag={Link}
 								to='/movies'
+								className='linkItem'
 							>
 								Movies
 							</NavLink>
 						</NavItem>
-						<NavItem>
+						<NavItem className='navItem'>
 							<NavLink
-								className='nav-link'
 								tag={Link}
 								to='/sports'
 								style={navLinkIcon}
+								className='linkItem'
 							>
 								Sports
 							</NavLink>
 						</NavItem>
-						<NavItem>
+						<NavItem className='navItem'>
 							<NavLink
-								className='nav-link'
 								tag={Link}
 								to='/music'
 								style={navLinkIcon}
+								className='linkItem'
 							>
 								Music
 							</NavLink>
@@ -82,12 +83,12 @@ const AuthNavBar = () => {
 					</Nav>
 				</Collapse>
 				<Nav>
-					<NavItem>
+					<NavItem className='navItem'>
 						<NavLink
-							className='nav-link'
 							style={logOutIcon}
 							tag={Link}
 							to='/logout'
+							className='linkItem'
 						>
 							Logout
 						</NavLink>

@@ -10,27 +10,28 @@ import {
 	NavLink
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import './Navbar.css';
 
 const NavBar = () => {
-	const navLinkIcon = {
-		fontSize: '20px',
-		paddingLeft: '25px',
-		paddingRight: '25px'
-	};
 	const [collapsed, setIsCollapsed] = useState(true);
 	const toggleNavbar = () => {
 		setIsCollapsed(prevState => !prevState);
 	};
+	const navLinkIcon = {
+		fontSize: '25px',
+		paddingLeft: '5px',
+		paddingRight: '25px'
+	};
+
 	const guestLinks = (
 		<Fragment>
 			<Navbar light expand='md'>
 				<NavbarToggler onClick={e => toggleNavbar(e)} className='mr-2' />
 				<NavbarBrand
-					className='mr-auto'
+					className='mr-auto linkItem'
+					style={navLinkIcon}
 					tag={Link}
 					to='/'
-					className='nav-link'
-					activeclassname='active'
 				>
 					Quick2Link
 				</NavbarBrand>
@@ -38,22 +39,20 @@ const NavBar = () => {
 					<Nav className='ml-auto' navbar>
 						<NavItem className='navItem'>
 							<NavLink
-								style={navLinkIcon}
 								tag={Link}
 								to='/login'
-								className='nav-link'
-								activeclassname='active'
+								style={navLinkIcon}
+								className='linkItem'
 							>
 								Log In
 							</NavLink>
 						</NavItem>
 						<NavItem>
 							<NavLink
-								style={navLinkIcon}
 								tag={Link}
 								to='/register'
-								className='nav-link'
-								activeclassname='active'
+								style={navLinkIcon}
+								className='linkItem'
 							>
 								Sign Up
 							</NavLink>

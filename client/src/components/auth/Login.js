@@ -49,10 +49,10 @@ const Login = props => {
 
 	return (
 		<Fragment>
-			<NavBar/>
+			<NavBar />
 			<div className='container'>
 				<br />
-				<Alert color='danger'>
+				<Alert color='warning'>
 					{handleErrors.currentErrors.length > 0
 						? handleErrors.currentErrors[0]
 						: `Invalid credentials will be displayed here`}

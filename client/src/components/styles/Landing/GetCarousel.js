@@ -1,36 +1,31 @@
 import React, { Component } from 'react';
-import {
-	Carousel,
-	CarouselItem,
-	CarouselControl,
-	CarouselIndicators,
-} from 'reactstrap';
-import './GetCarousel.css'
+import { Carousel, CarouselItem, CarouselControl } from 'reactstrap';
+import CarouselCaptions from './CarouselCaptions';
+import './GetCarousel.css';
 
 const items = [
 	{
-		src:'https://i.ytimg.com/vi/pyBtwWDzacI/maxresdefault.jpg',
 		id: 1,
-		altText: 'Slide 1',
-		caption: 'SOCIAL',
+		src: 'https://i.ytimg.com/vi/pyBtwWDzacI/maxresdefault.jpg',
+		altText: 'SOCIAL'
 	},
 	{
-		src:'https://www.macworld.co.uk/cmsdata/features/3668897/apple-tv-app_thumb800.jpg',
+		src:
+			'https://cdn.iphonelife.com/sites/iphonelife.com/files/styles/promo_in_content_breakpoints_theme_newmango_mobile_2x/public/shutterstock_500148850.jpg?itok=LKlfcqcy',
 		id: 2,
-		altText: 'Slide 2',
-		caption: 'MOVIES',
+		altText: 'MOVIES'
 	},
 	{
-		src:'https://4.bp.blogspot.com/-gTUOu6wluzs/WhRkglVLXDI/AAAAAAAABVs/O1to42D_C7MA22xUNAfX9GDm4GUR0-WwwCLcBGAs/s1600/Best-Music-Streaming-Apps-for-iPhone-iPad.jpg',
-		id:'3',
-		altText:'movies',
-		caption:'MUSIC',
+		id: '3',
+		src:
+			'https://www.telegraph.co.uk/content/dam/technology/2018/02/19/Apple-Music-Amazon-Music-Compared_trans_NvBQzQNjv4BqzpLIMkIGUMcygT0RwMtmygpcDfsC-seRM-lm2nZ7XJA.jpg?imwidth=450',
+
+		altText: 'MUSIC'
 	},
 	{
-		src: 'https://www.101greatgoals.com/wp-content/uploads/2019/04/LIVE-STREAMING-1024x640.jpg',
 		id: '4',
-		altText: 'sports',
-		caption:'SPORTS',
+		src: 'https://d1sgwhnao7452x.cloudfront.net/360i_test1_CA_EN.jpg',
+		altText: 'SPORTS'
 	}
 ];
 
@@ -71,7 +66,6 @@ class GetCarousel extends Component {
 	}
 
 	render() {
-		
 		const { activeIndex } = this.state;
 
 		const slides = items.map(item => {
@@ -83,10 +77,19 @@ class GetCarousel extends Component {
 					onExiting={this.onExiting}
 					onExited={this.onExited}
 				>
-					
-					<img src={item.src} className='d-block w-100' alt={item.altText} style={{maxHeight:'500px',maxWidth:'100%',
-				display:'block', marginLeft:'auto', marginRight:'auto'}} />	
-					</CarouselItem>
+					<img
+						src={item.src}
+						className='imageStyling'
+						alt={item.caption}
+						style={{
+							maxHeight: '400px',
+							display: 'block',
+							marginLeft: 'auto',
+							marginRight: 'auto'
+						}}
+					/>
+					<CarouselCaptions className='header' captionHeaders={item.altText} />
+				</CarouselItem>
 			);
 		});
 

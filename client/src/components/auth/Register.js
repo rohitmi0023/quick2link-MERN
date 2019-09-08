@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Alert, Form, FormGroup, Button, Input, Col, Row } from 'reactstrap';
 // import NavBar from '../layout/NavBar';
-import NavBar from './NavBar'
+import NavBar from './NavBar';
 
 const Register = props => {
 	const [formData, setFormData] = useState({
@@ -50,10 +50,10 @@ const Register = props => {
 	};
 	return (
 		<Fragment>
-			<NavBar/>
+			<NavBar />
 			<div className='container'>
 				<br />
-				<Alert color='danger'>
+				<Alert color='warning'>
 					{handleErrors.currentErrors.length > 0
 						? handleErrors.currentErrors[0]
 						: `Invalid credentials will be displayed here`}
