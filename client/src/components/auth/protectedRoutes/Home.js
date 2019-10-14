@@ -8,6 +8,9 @@ const Home = props => {
 		return <Redirect to='/forbidden' />;
 	}
 
+	const token = localStorage.getItem('token')
+	
+
 	// const onRender = async e => {
 	// 	const token = localStorage.getItem('token');
 	// 	try {
@@ -28,7 +31,6 @@ const Home = props => {
 	return (
 		<Fragment>
 			<AuthNavBar />
-			<h3>Welcome {e => onRender(e)}</h3>
 			<h2>This page will be accessed by registered users only! </h2>
 		</Fragment>
 	);
