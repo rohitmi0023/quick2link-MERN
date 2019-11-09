@@ -19,7 +19,11 @@ const UserSchema = new mongoose.Schema({
 	date: {
 		type: Date,
 		default: Date.now
-	}
+	},
+	socialList: [{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Social'
+		}]
 });
 
 module.exports = User = mongoose.model('User', UserSchema);
