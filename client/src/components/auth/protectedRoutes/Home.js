@@ -9,9 +9,9 @@ const Home = props => {
 	// const [details, setDetails] = useState({
 		// name: null
 	// })
-	if (props.isAuth === false) {
-		return <Redirect to='/forbidden' />;
-	}
+	// if (props.isAuth === false) {
+	// 	return <Redirect to='/forbidden' />;
+	// }
 	// const onRender = () => {
 	// const token = localStorage.getItem('token')
 	// const userToken = jwt_decode(token)

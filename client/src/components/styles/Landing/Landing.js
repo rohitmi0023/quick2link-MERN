@@ -32,10 +32,10 @@ const Landing = () => {
 					</li>
 				</ul>
 				<br />
-				&emsp;
+				{/* &emsp; */}
 				<br />
+				<div className='developer'>
 				<h3 style={{ textAlign: 'center' }}>About the Developer</h3>
-				<br />
 				<img src={Me} alt='pic' className='MyPhoto' />
 				<ul className='textforlarge'>
 					<li>Crazy for Cricket, Coding, Chess.</li>
@@ -47,7 +47,7 @@ const Landing = () => {
 				</ul>
 				<h3>Find me on : </h3>
 				<a href='https://github.com/rohitmi0023'>
-					<FaGithub size='2em' color='Black' />
+					<FaGithub size='2em' color='Brown' />
 				</a>
 				&emsp; &ensp;
 				<a href='https://www.instagram.com/rohitmi0023/'>
@@ -61,6 +61,7 @@ const Landing = () => {
 				<a href='https://www.facebook.com/profile.php?id=100004934191319'>
 					<FaFacebook size='2em' color='#3a5896' />
 				</a>
+				</div>
 			</div>
 			<br />
 			<br />

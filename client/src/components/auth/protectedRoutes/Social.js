@@ -1,19 +1,17 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import AuthNavBar from '../../layout/AuthNavBar';
 import '../../styles/social/index.css'
 import Axios from 'axios'
 import { Button, Form, FormGroup, Label, Input, Row, Col } from 'reactstrap';
+import { SocialContext } from './SocialContext';
 
 const Social = props => {
 	const [formData, setFormData] = useState({
 		linkName: '',
 		link: ''
   });
-  const [socialList, setSocialList] = useState({
-    listLinkName: '',
-    listLink: ''
-  })
+  const [socialList, setSocialList] = useContext(SocialContext)
 	if (props.isAuth === false) {
 		return <Redirect to='/forbidden' />;
 	}
@@ -37,7 +35,7 @@ const Social = props => {
 			};
       const body = JSON.stringify(socialList)
       const res = await Axios.post('/api/social', body, config)
-      // setFormData({...setSocialList, listLinkName: list.[list]})
+      setSocialList(prev => [...prev, { link, linkName }])
       console.log(res)
     } catch (err) {
       console.error(err);
@@ -65,6 +63,7 @@ const Social = props => {
 	return (
 		<Fragment>
 		<AuthNavBar />
+    <br/>
 		<Form onSubmit={e => handleSubmit(e)} className='socialForm'>
        	<Row form>
             <Col md ={5}>
@@ -83,10 +82,7 @@ const Social = props => {
          <Button>Add</Button>
      	</Form>
        	<h2 className='heading'>Social Lists</h2>
-      <ul>
-        <li>
-         </li>
-      </ul>
+      
 		</Fragment>
 )
 };

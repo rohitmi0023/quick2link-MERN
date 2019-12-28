@@ -28,7 +28,7 @@ const AuthNavBar = () => {
 	};
 	const authLinks = (
 		<Fragment>
-			<Navbar light expand='md'>
+			<Navbar light expand='md' color='primary'>
 				<NavbarToggler onClick={e => toggleNavbar(e)} className='mr-2' />
 				<NavbarBrand
 					className='mr-auto linkItem'

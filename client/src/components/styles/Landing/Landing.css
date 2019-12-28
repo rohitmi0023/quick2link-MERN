@@ -28,11 +28,12 @@
 }
 
 .MyPhoto {
-	border-radius: 50%;
-	position: relative;
+	border-radius: 60%;
+	/* position: relative; */
 	float: right;
-	max-width: 22%;
-	max-height: 15%;
+	min-width: 83px;
+	max-width: 18%;
+	max-height: 11%;
 }
 
 @font-face {
@@ -44,4 +45,9 @@
 	.textforlarge {
 		font-size: 25px;
 	}
+}
+
+.developer {
+	border: 2px solid white;
+	padding: 2%;
 }

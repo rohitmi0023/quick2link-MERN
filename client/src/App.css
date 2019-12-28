@@ -1,6 +1,7 @@
 body {
 	margin: 0;
 	padding: 0%;
-	background-image: url('bg.jpg');
+	background: black !important;
 	font-family: 'Roboto', sans-serif;
+	color: #d8d6d0 !important;
 }
