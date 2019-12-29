@@ -1,0 +1,17 @@
+.socialListWord {
+    font-size: 58px !important;
+    text-align: center;
+    padding: 0px 60px 0px 60px;
+    font-family: "Urban Jungle";
+}
+.socialListLink {
+    padding: 0px 30px 10px 30px;
+}
+.socialListClass {
+    max-width: 250px;
+    display: inline-flex !important;
+    min-width: 200px;
+    padding: 0px 0px 15px 20px;
+    text-align: center;
+    min-height: 110px;
+}

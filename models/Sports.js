@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const socialSchema = new Schema({
+const sportsSchema = new Schema({
     lists: [
         {
             link: { type: String },
@@ -14,4 +14,4 @@ const socialSchema = new Schema({
     }
 });
 
-module.exports = Social = mongoose.model("Social", socialSchema);
+module.exports = Sports = mongoose.model("Sports", sportsSchema);

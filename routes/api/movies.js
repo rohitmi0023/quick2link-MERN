@@ -1,17 +1,17 @@
 const express = require("express");
 const User = require("../../models/User");
-const Social = require("../../models/Social");
+const Movies = require("../../models/Movies");
 const auth = require("../../middleware/auth");
 const router = express.Router();
 
-// @route POST api/social
-// desc social route
+// @route POST api/movies
+// desc movies route
 // access Private
 
 router.post("/", [auth], async (req, res) => {
     try {
-        let social = await Social.findOne({ user: req.user.id });
-        social = await Social.findOneAndUpdate(
+        let movies = await Movies.findOne({ user: req.user.id });
+        movies = await Movies.findOneAndUpdate(
             { user: req.user.id },
             { $push: { lists: [req.body] } },
             { new: true, safe: true, upsert: true }
@@ -19,24 +19,24 @@ router.post("/", [auth], async (req, res) => {
         let user = await User.findOne({ _id: req.user.id });
         user = await User.findOneAndUpdate(
             { _id: req.user.id },
-            { $push: { socialList: social.lists[social.lists.length - 1].id } },
+            { $push: { moviesList: movies.lists[movies.lists.length - 1].id } },
             { new: true, safe: true, upsert: true }
         );
-        return res.json(social);
+        return res.json(movies);
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Errors");
     }
 });
 
-// @route GET api/social
-// desc social route
+// @route GET api/movies
+// desc movies route
 // access Private
 router.get("/", [auth], async (req, res) => {
-    const socialListUser = await Social.find({ user: req.user.id }).populate(
-        "socialList"
+    const moviesListUser = await Movies.find({ user: req.user.id }).populate(
+        "moviesList"
     );
-    return res.json(socialListUser);
+    return res.json(moviesListUser);
 });
 
 module.exports = router;
