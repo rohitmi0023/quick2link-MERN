@@ -39,4 +39,29 @@ router.get("/", [auth], async (req, res) => {
     return res.json(moviesListUser);
 });
 
+// @route DELETE api/movies/:_id
+// desc Delete selected list element from moviesList
+// access Private
+router.delete("/:_id", [auth], async (req, res) => {
+    try {
+        const moviesId = await Movies.findOne({ user: req.user.id });
+        //Get remove index
+        const removeIndexMovies = moviesId.lists
+            .map(item => item.id)
+            .indexOf(req.params._id);
+        moviesId.lists.splice(removeIndexMovies, 1);
+        await moviesId.save();
+        const userId = await User.findOne({ _id: req.user.id });
+        const removeIndexUser = userId.moviesList
+            .map(item => item.id)
+            .indexOf(req.params.id);
+        userId.moviesList.splice(removeIndexUser, 1);
+        await userId.save();
+        return res.json(moviesId);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(`Server Error`);
+    }
+});
+
 module.exports = router;

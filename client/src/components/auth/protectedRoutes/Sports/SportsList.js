@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from "react";
 import "./sportsList.css";
 import { Card, CardImg, CardDeck, CardLink, Spinner } from "reactstrap";
 import { SportsContext } from "./SportsContext";
+import Axios from "axios";
 
 const SportsList = () => {
     const [sportsList, setSportsList, isLoading, setIsLoading] = useContext(
@@ -47,6 +48,50 @@ const SportsList = () => {
                                         ? linkName.slice(0, 8) + "..."
                                         : linkName}
                                 </CardLink>
+                                <img
+                                    src={require("../deleteImage.png")}
+                                    style={{
+                                        maxWidth: "21px",
+                                        maxHeight: "21px",
+                                        position: "absolute"
+                                    }}
+                                    onClick={async () => {
+                                        const token = localStorage.getItem(
+                                            "token"
+                                        );
+                                        const config = {
+                                            headers: {
+                                                "Content-Type":
+                                                    "application/json",
+                                                "x-auth-token": `${token}`
+                                            }
+                                        };
+                                        await Axios.delete(
+                                            `/api/sports/${_id}`,
+                                            config
+                                        );
+                                        //Get index
+                                        let sportsListCopy = sportsList.map(
+                                            list => list
+                                        );
+                                        for (
+                                            let i = 0;
+                                            i < sportsListCopy.length;
+                                            i++
+                                        ) {
+                                            let sports = sportsListCopy[i];
+                                            if (sports._id === _id) {
+                                                sportsListCopy.splice(i, 1);
+                                                break;
+                                            }
+                                        }
+                                        setSportsList(sportsListCopy);
+                                        alert(
+                                            `Successfully removed ${linkName}`
+                                        );
+                                    }}
+                                    alt=""
+                                />
                             </Card>
                         </CardDeck>
                     );

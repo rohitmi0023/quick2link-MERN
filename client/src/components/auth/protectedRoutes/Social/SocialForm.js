@@ -28,12 +28,14 @@ const SocialForm = () => {
             };
             const body = JSON.stringify(socialList);
             Axios.post("/api/social", body, config)
-                .then(
+                .then(res => {
+                    console.log(res.data.lists[res.data.lists.length - 1]._id);
+                    const newId = res.data.lists[res.data.lists.length - 1]._id;
                     setSocialList(prev => [
                         ...prev,
-                        { _id: Math.random(), link, linkName }
-                    ])
-                )
+                        { _id: newId, link, linkName }
+                    ]);
+                })
                 .then(setFormData({ link: "", linkName: "" }));
         } catch (err) {
             console.error(err);

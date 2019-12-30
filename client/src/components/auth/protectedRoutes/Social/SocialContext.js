@@ -15,18 +15,20 @@ export const SocialProvider = props => {
             }
         };
         Axios.get("/api/social", config)
-            .then(res =>
-                res.data[0].lists.map(list => ({
+            .then(res => {
+                if (Boolean(res)) {
+                    setIsLoading(false);
+                }
+                return res.data[0].lists.map(list => ({
                     _id: `${list._id}`,
                     link: `${list.link}`,
                     linkName: `${list.linkName}`
-                }))
-            )
+                }));
+            })
             .then(socialList => {
                 setSocialList(socialList);
-            })
-            .then(setIsLoading(false))
-            .catch(err => console.log(err.message));
+            });
+        // .catch(err => console.log(err.message));
     };
     useEffect(() => {
         getList();

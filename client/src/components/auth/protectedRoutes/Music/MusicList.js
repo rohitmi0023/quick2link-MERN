@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from "react";
 import "./musicList.css";
 import { Card, CardImg, CardDeck, CardLink, Spinner } from "reactstrap";
 import { MusicContext } from "./MusicContext";
+import Axios from "axios";
 
 const MusicList = () => {
     const [musicList, setMusicList, isLoading, setIsLoading] = useContext(
@@ -47,6 +48,50 @@ const MusicList = () => {
                                         ? linkName.slice(0, 8) + "..."
                                         : linkName}
                                 </CardLink>
+                                <img
+                                    src={require("../deleteImage.png")}
+                                    style={{
+                                        maxWidth: "21px",
+                                        maxHeight: "21px",
+                                        position: "absolute"
+                                    }}
+                                    onClick={async () => {
+                                        const token = localStorage.getItem(
+                                            "token"
+                                        );
+                                        const config = {
+                                            headers: {
+                                                "Content-Type":
+                                                    "application/json",
+                                                "x-auth-token": `${token}`
+                                            }
+                                        };
+                                        await Axios.delete(
+                                            `/api/music/${_id}`,
+                                            config
+                                        );
+                                        //Get index
+                                        let musicListCopy = musicList.map(
+                                            list => list
+                                        );
+                                        for (
+                                            let i = 0;
+                                            i < musicListCopy.length;
+                                            i++
+                                        ) {
+                                            let music = musicListCopy[i];
+                                            if (music._id === _id) {
+                                                musicListCopy.splice(i, 1);
+                                                break;
+                                            }
+                                        }
+                                        setMusicList(musicListCopy);
+                                        alert(
+                                            `Successfully removed ${linkName}`
+                                        );
+                                    }}
+                                    alt=""
+                                />
                             </Card>
                         </CardDeck>
                     );

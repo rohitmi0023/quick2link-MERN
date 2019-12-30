@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from "react";
 import "./socialList.css";
 import { Card, CardImg, CardDeck, CardLink, Spinner } from "reactstrap";
 import { SocialContext } from "./SocialContext";
+import Axios from "axios";
 
 const SocialList = () => {
     const [socialList, setSocialList, isLoading, setIsLoading] = useContext(
@@ -47,6 +48,50 @@ const SocialList = () => {
                                         ? linkName.slice(0, 8) + "..."
                                         : linkName}
                                 </CardLink>
+                                <img
+                                    src={require("../deleteImage.png")}
+                                    style={{
+                                        maxWidth: "21px",
+                                        maxHeight: "21px",
+                                        position: "absolute"
+                                    }}
+                                    onClick={async () => {
+                                        const token = localStorage.getItem(
+                                            "token"
+                                        );
+                                        const config = {
+                                            headers: {
+                                                "Content-Type":
+                                                    "application/json",
+                                                "x-auth-token": `${token}`
+                                            }
+                                        };
+                                        await Axios.delete(
+                                            `/api/social/${_id}`,
+                                            config
+                                        );
+                                        //Get index
+                                        let socialListCopy = socialList.map(
+                                            list => list
+                                        );
+                                        for (
+                                            let i = 0;
+                                            i < socialListCopy.length;
+                                            i++
+                                        ) {
+                                            let social = socialListCopy[i];
+                                            if (social._id === _id) {
+                                                socialListCopy.splice(i, 1);
+                                                break;
+                                            }
+                                        }
+                                        setSocialList(socialListCopy);
+                                        alert(
+                                            `Successfully removed ${linkName}`
+                                        );
+                                    }}
+                                    alt="Delete"
+                                />
                             </Card>
                         </CardDeck>
                     );

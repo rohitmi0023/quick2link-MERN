@@ -15,18 +15,20 @@ export const MoviesProvider = props => {
             }
         };
         Axios.get("/api/movies", config)
-            .then(res =>
-                res.data[0].lists.map(list => ({
+            .then(res => {
+                if (Boolean(res)) {
+                    setIsLoading(false);
+                }
+                return res.data[0].lists.map(list => ({
                     _id: `${list._id}`,
                     link: `${list.link}`,
                     linkName: `${list.linkName}`
-                }))
-            )
+                }));
+            })
             .then(moviesList => {
                 setMoviesList(moviesList);
-            })
-            .then(setIsLoading(false))
-            .catch(err => console.log(err.message));
+            });
+        // .catch(err => console.log(err.message));
     };
     useEffect(() => {
         getList();

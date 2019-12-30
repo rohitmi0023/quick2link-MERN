@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from "react";
 import "./moviesList.css";
 import { Card, CardImg, CardDeck, CardLink, Spinner } from "reactstrap";
 import { MoviesContext } from "./MoviesContext";
+import Axios from "axios";
 
 const MoviesList = () => {
     const [moviesList, setMoviesList, isLoading, setIsLoading] = useContext(
@@ -47,6 +48,50 @@ const MoviesList = () => {
                                         ? linkName.slice(0, 8) + "..."
                                         : linkName}
                                 </CardLink>
+                                <img
+                                    src={require("../deleteImage.png")}
+                                    style={{
+                                        maxWidth: "21px",
+                                        maxHeight: "21px",
+                                        position: "absolute"
+                                    }}
+                                    onClick={async () => {
+                                        const token = localStorage.getItem(
+                                            "token"
+                                        );
+                                        const config = {
+                                            headers: {
+                                                "Content-Type":
+                                                    "application/json",
+                                                "x-auth-token": `${token}`
+                                            }
+                                        };
+                                        await Axios.delete(
+                                            `/api/movies/${_id}`,
+                                            config
+                                        );
+                                        //Get index
+                                        let moviesListCopy = moviesList.map(
+                                            list => list
+                                        );
+                                        for (
+                                            let i = 0;
+                                            i < moviesListCopy.length;
+                                            i++
+                                        ) {
+                                            let movies = moviesListCopy[i];
+                                            if (movies._id === _id) {
+                                                moviesListCopy.splice(i, 1);
+                                                break;
+                                            }
+                                        }
+                                        setMoviesList(moviesListCopy);
+                                        alert(
+                                            `Successfully removed ${linkName}`
+                                        );
+                                    }}
+                                    alt=""
+                                />
                             </Card>
                         </CardDeck>
                     );

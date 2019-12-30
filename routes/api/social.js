@@ -39,4 +39,29 @@ router.get("/", [auth], async (req, res) => {
     return res.json(socialListUser);
 });
 
+// @route DELETE api/social/:_id
+// desc Delete selected list element from socialList
+// access Private
+router.delete("/:_id", [auth], async (req, res) => {
+    try {
+        const socialId = await Social.findOne({ user: req.user.id });
+        //Get remove index
+        const removeIndexSocial = socialId.lists
+            .map(item => item.id)
+            .indexOf(req.params._id);
+        socialId.lists.splice(removeIndexSocial, 1);
+        await socialId.save();
+        const userId = await User.findOne({ _id: req.user.id });
+        const removeIndexUser = userId.socialList
+            .map(item => item.id)
+            .indexOf(req.params.id);
+        userId.socialList.splice(removeIndexUser, 1);
+        await userId.save();
+        return res.json(socialId);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(`Server Error`);
+    }
+});
+
 module.exports = router;

@@ -28,12 +28,14 @@ const MoviesForm = () => {
             };
             const body = JSON.stringify(moviesList);
             Axios.post("/api/movies", body, config)
-                .then(
+                .then(res => {
+                    console.log(res.data.lists[res.data.lists.length - 1]._id);
+                    const newId = res.data.lists[res.data.lists.length - 1]._id;
                     setMoviesList(prev => [
                         ...prev,
-                        { _id: Math.random(), link, linkName }
-                    ])
-                )
+                        { _id: newId, link, linkName }
+                    ]);
+                })
                 .then(setFormData({ link: "", linkName: "" }));
         } catch (err) {
             console.error(err);

@@ -28,12 +28,14 @@ const MusicForm = () => {
             };
             const body = JSON.stringify(musicList);
             Axios.post("/api/music", body, config)
-                .then(
+                .then(res => {
+                    console.log(res.data.lists[res.data.lists.length - 1]._id);
+                    const newId = res.data.lists[res.data.lists.length - 1]._id;
                     setMusicList(prev => [
                         ...prev,
-                        { _id: Math.random(), link, linkName }
-                    ])
-                )
+                        { _id: newId, link, linkName }
+                    ]);
+                })
                 .then(setFormData({ link: "", linkName: "" }));
         } catch (err) {
             console.error(err);
