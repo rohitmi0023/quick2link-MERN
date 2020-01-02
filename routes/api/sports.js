@@ -1,4 +1,5 @@
 const express = require("express");
+const { check, validationResult } = require("express-validator");
 const User = require("../../models/User");
 const Sports = require("../../models/Sports");
 const auth = require("../../middleware/auth");
@@ -8,26 +9,46 @@ const router = express.Router();
 // desc sports route
 // access Private
 
-router.post("/", [auth], async (req, res) => {
-    try {
-        let sports = await Sports.findOne({ user: req.user.id });
-        sports = await Sports.findOneAndUpdate(
-            { user: req.user.id },
-            { $push: { lists: [req.body] } },
-            { new: true, safe: true, upsert: true }
-        );
-        let user = await User.findOne({ _id: req.user.id });
-        user = await User.findOneAndUpdate(
-            { _id: req.user.id },
-            { $push: { sportsList: sports.lists[sports.lists.length - 1].id } },
-            { new: true, safe: true, upsert: true }
-        );
-        return res.json(sports);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send("Server Errors");
+router.post(
+    "/",
+    [
+        check("linkName", `LinkName is required`)
+            .not()
+            .isEmpty(),
+        check("link", `Link is required`)
+            .not()
+            .isEmpty()
+    ],
+    [auth],
+    async (req, res) => {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json(errors);
+            }
+            let sports = await Sports.findOne({ user: req.user.id });
+            sports = await Sports.findOneAndUpdate(
+                { user: req.user.id },
+                { $push: { lists: [req.body] } },
+                { new: true, safe: true, upsert: true }
+            );
+            let user = await User.findOne({ _id: req.user.id });
+            user = await User.findOneAndUpdate(
+                { _id: req.user.id },
+                {
+                    $push: {
+                        sportsList: sports.lists[sports.lists.length - 1].id
+                    }
+                },
+                { new: true, safe: true, upsert: true }
+            );
+            return res.json(sports);
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send("Server Errors");
+        }
     }
-});
+);
 
 // @route GET api/sports
 // desc sports route

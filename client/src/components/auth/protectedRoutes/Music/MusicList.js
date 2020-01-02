@@ -1,15 +1,19 @@
-import React, { Fragment, useContext } from "react";
-import "./musicList.css";
-import { Card, CardImg, CardDeck, CardLink, Spinner } from "reactstrap";
+import React, { useContext } from "react";
+import {
+    Card,
+    CardImg,
+    CardDeck,
+    CardLink,
+    Spinner,
+    UncontrolledTooltip
+} from "reactstrap";
 import { MusicContext } from "./MusicContext";
 import Axios from "axios";
 
 const MusicList = () => {
-    const [musicList, setMusicList, isLoading, setIsLoading] = useContext(
-        MusicContext
-    );
+    const [musicList, setMusicList, isLoading] = useContext(MusicContext);
     return (
-        <Fragment>
+        <div className="container-fluid">
             <h2 className="heading">Music Lists</h2>
             {isLoading ? (
                 <Spinner
@@ -43,11 +47,18 @@ const MusicList = () => {
                                     href={link}
                                     target="_blank"
                                     className="musicListLink"
+                                    id="UncontrolledTooltipExample"
                                 >
                                     {linkName.length > 10
                                         ? linkName.slice(0, 8) + "..."
                                         : linkName}
-                                </CardLink>
+                                </CardLink>{" "}
+                                <UncontrolledTooltip
+                                    placement="top"
+                                    target="UncontrolledTooltipExample"
+                                >
+                                    {linkName}
+                                </UncontrolledTooltip>
                                 <img
                                     src={require("../deleteImage.png")}
                                     style={{
@@ -107,7 +118,7 @@ const MusicList = () => {
                     Nothing Added...
                 </p>
             )}
-        </Fragment>
+        </div>
     );
 };
 

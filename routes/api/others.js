@@ -1,12 +1,12 @@
 const express = require("express");
 const { check, validationResult } = require("express-validator");
 const User = require("../../models/User");
-const Movies = require("../../models/Movies");
+const Others = require("../../models/Others");
 const auth = require("../../middleware/auth");
 const router = express.Router();
 
-// @route POST api/movies
-// desc movies route
+// @route POST api/others
+// desc others route
 // access Private
 
 router.post(
@@ -21,13 +21,13 @@ router.post(
     ],
     [auth],
     async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json([errors]);
+        }
         try {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json(errors);
-            }
-            let movies = await Movies.findOne({ user: req.user.id });
-            movies = await Movies.findOneAndUpdate(
+            let others = await Others.findOne({ user: req.user.id });
+            others = await Others.findOneAndUpdate(
                 { user: req.user.id },
                 { $push: { lists: [req.body] } },
                 { new: true, safe: true, upsert: true }
@@ -37,12 +37,12 @@ router.post(
                 { _id: req.user.id },
                 {
                     $push: {
-                        moviesList: movies.lists[movies.lists.length - 1].id
+                        othersList: others.lists[others.lists.length - 1].id
                     }
                 },
                 { new: true, safe: true, upsert: true }
             );
-            return res.json(movies);
+            return res.json(others);
         } catch (err) {
             console.error(err.message);
             res.status(500).send("Server Errors");
@@ -50,35 +50,35 @@ router.post(
     }
 );
 
-// @route GET api/movies
-// desc movies route
+// @route GET api/others
+// desc others route
 // access Private
 router.get("/", [auth], async (req, res) => {
-    const moviesListUser = await Movies.find({ user: req.user.id }).populate(
-        "moviesList"
+    const othersListUser = await Others.find({ user: req.user.id }).populate(
+        "othersList"
     );
-    return res.json(moviesListUser);
+    return res.json(othersListUser);
 });
 
-// @route DELETE api/movies/:_id
-// desc Delete selected list element from moviesList
+// @route DELETE api/others/:_id
+// desc Delete selected list element from othersList
 // access Private
 router.delete("/:_id", [auth], async (req, res) => {
     try {
-        const moviesId = await Movies.findOne({ user: req.user.id });
+        const othersId = await Others.findOne({ user: req.user.id });
         //Get remove index
-        const removeIndexMovies = moviesId.lists
+        const removeIndexOthers = othersId.lists
             .map(item => item.id)
             .indexOf(req.params._id);
-        moviesId.lists.splice(removeIndexMovies, 1);
-        await moviesId.save();
+        othersId.lists.splice(removeIndexOthers, 1);
+        await othersId.save();
         const userId = await User.findOne({ _id: req.user.id });
-        const removeIndexUser = userId.moviesList
+        const removeIndexUser = userId.othersList
             .map(item => item.id)
             .indexOf(req.params.id);
-        userId.moviesList.splice(removeIndexUser, 1);
+        userId.othersList.splice(removeIndexUser, 1);
         await userId.save();
-        return res.json(moviesId);
+        return res.json(othersId);
     } catch (err) {
         console.error(err.message);
         res.status(500).send(`Server Error`);

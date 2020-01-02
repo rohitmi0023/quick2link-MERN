@@ -1,13 +1,15 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Form, FormGroup, Label, Input, Row, Col } from "reactstrap";
 import Axios from "axios";
 import { SocialContext } from "./SocialContext";
+import { Alert } from "reactstrap";
 
 const SocialForm = () => {
     const [formData, setFormData] = useState({
         linkName: "",
         link: ""
     });
+    const [handleErrors, setHandleErrors] = useState([]);
     const [socialList, setSocialList] = useContext(SocialContext);
     const { linkName, link } = formData;
     const onChange = e =>
@@ -15,35 +17,51 @@ const SocialForm = () => {
     const token = localStorage.getItem("token");
     const handleSubmit = e => {
         e.preventDefault();
-        const socialList = {
+        const socialListForm = {
             linkName,
             link
         };
-        try {
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-auth-token": `${token}`
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "x-auth-token": `${token}`
+            }
+        };
+        const body = JSON.stringify(socialListForm);
+        Axios.post("/api/social", body, config)
+            .then(res => {
+                const newId = res.data.lists[res.data.lists.length - 1]._id;
+                setSocialList([...socialList, { _id: newId, link, linkName }]);
+            })
+            .then(setFormData({ link: "", linkName: "" }))
+            .catch(err => {
+                console.log(err);
+                if ((err.response.status = 400)) {
+                    const { data } = err.response;
+                    const errorMsgs = data.map(list => {
+                        const { errors } = list;
+                        return errors;
+                    });
+                    console.log(errorMsgs[0][0]);
+                    setHandleErrors([errorMsgs[0][0].msg]);
                 }
-            };
-            const body = JSON.stringify(socialList);
-            Axios.post("/api/social", body, config)
-                .then(res => {
-                    console.log(res.data.lists[res.data.lists.length - 1]._id);
-                    const newId = res.data.lists[res.data.lists.length - 1]._id;
-                    setSocialList(prev => [
-                        ...prev,
-                        { _id: newId, link, linkName }
-                    ]);
-                })
-                .then(setFormData({ link: "", linkName: "" }));
-        } catch (err) {
-            console.error(err);
-        }
+            });
     };
     return (
-        <Fragment>
+        <div className="container">
             <br />
+            <Alert
+                color="warning"
+                style={{
+                    maxWidth: "350px",
+                    backgroundColor: "black",
+                    color: "white"
+                }}
+            >
+                {handleErrors.length
+                    ? handleErrors
+                    : `Invalid credentials will be displayed here`}
+            </Alert>
             <Form onSubmit={e => handleSubmit(e)} className="socialForm">
                 <Row form>
                     <Col md={5}>
@@ -55,6 +73,10 @@ const SocialForm = () => {
                                 placeholder="Ex. Facebook"
                                 onChange={e => onChange(e)}
                                 value={linkName}
+                                style={{
+                                    backgroundColor: "black",
+                                    color: "white"
+                                }}
                             />
                         </FormGroup>
                     </Col>
@@ -67,13 +89,17 @@ const SocialForm = () => {
                                 placeholder="Ex. https://www.facebook.com/"
                                 onChange={e => onChange(e)}
                                 value={link}
+                                style={{
+                                    backgroundColor: "black",
+                                    color: "white"
+                                }}
                             />
                         </FormGroup>
                     </Col>
                 </Row>
                 <Button>Add</Button>
             </Form>
-        </Fragment>
+        </div>
     );
 };
 

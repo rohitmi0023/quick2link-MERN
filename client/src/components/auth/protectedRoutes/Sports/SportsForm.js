@@ -1,5 +1,14 @@
-import React, { Fragment, useState, useContext } from "react";
-import { Button, Form, FormGroup, Label, Input, Row, Col } from "reactstrap";
+import React, { useState, useContext } from "react";
+import {
+    Button,
+    Form,
+    FormGroup,
+    Label,
+    Input,
+    Row,
+    Col,
+    Alert
+} from "reactstrap";
 import Axios from "axios";
 import { SportsContext } from "./SportsContext";
 
@@ -8,6 +17,7 @@ const SportsForm = () => {
         linkName: "",
         link: ""
     });
+    const [handleErrors, setHandleErrors] = useState([]);
     const [sportsList, setSportsList] = useContext(SportsContext);
     const { linkName, link } = formData;
     const onChange = e =>
@@ -15,34 +25,52 @@ const SportsForm = () => {
     const token = localStorage.getItem("token");
     const handleSubmit = e => {
         e.preventDefault();
-        const sportsList = {
+        const sportsListForm = {
             linkName,
             link
         };
-        try {
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-auth-token": `${token}`
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "x-auth-token": `${token}`
+            }
+        };
+        const body = JSON.stringify(sportsListForm);
+        Axios.post("/api/sports", body, config)
+            .then(res => {
+                console.log(res.data.lists[res.data.lists.length - 1]._id);
+                const newId = res.data.lists[res.data.lists.length - 1]._id;
+                setSportsList([...sportsList, { _id: newId, link, linkName }]);
+            })
+            .then(setFormData({ link: "", linkName: "" }))
+            .catch(err => {
+                console.log(err);
+                if ((err.response.status = 400)) {
+                    const { data } = err.response;
+                    const errorMsgs = data.map(list => {
+                        const { errors } = list;
+                        return errors;
+                    });
+                    console.log(errorMsgs[0][0]);
+                    setHandleErrors([errorMsgs[0][0].msg]);
                 }
-            };
-            const body = JSON.stringify(sportsList);
-            Axios.post("/api/sports", body, config)
-                .then(res => {
-                    console.log(res.data.lists[res.data.lists.length - 1]._id);
-                    const newId = res.data.lists[res.data.lists.length - 1]._id;
-                    setSportsList(prev => [
-                        ...prev,
-                        { _id: newId, link, linkName }
-                    ]);
-                })
-                .then(setFormData({ link: "", linkName: "" }));
-        } catch (err) {
-            console.error(err);
-        }
+            });
     };
     return (
-        <Fragment>
+        <div className="container">
+            <br />
+            <Alert
+                color="warning"
+                style={{
+                    maxWidth: "350px",
+                    backgroundColor: "black",
+                    color: "white"
+                }}
+            >
+                {handleErrors.length
+                    ? handleErrors
+                    : `Invalid credentials will be displayed here`}
+            </Alert>
             <br />
             <Form onSubmit={e => handleSubmit(e)} className="sportsForm">
                 <Row form>
@@ -55,6 +83,10 @@ const SportsForm = () => {
                                 placeholder="Ex. Star Sports"
                                 onChange={e => onChange(e)}
                                 value={linkName}
+                                style={{
+                                    backgroundColor: "black",
+                                    color: "white"
+                                }}
                             />
                         </FormGroup>
                     </Col>
@@ -67,13 +99,17 @@ const SportsForm = () => {
                                 placeholder="Ex. http://www.foxsportsasia.com/"
                                 onChange={e => onChange(e)}
                                 value={link}
+                                style={{
+                                    backgroundColor: "black",
+                                    color: "white"
+                                }}
                             />
                         </FormGroup>
                     </Col>
                 </Row>
                 <Button>Add</Button>
             </Form>
-        </Fragment>
+        </div>
     );
 };
 

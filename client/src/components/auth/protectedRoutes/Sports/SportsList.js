@@ -1,15 +1,19 @@
-import React, { Fragment, useContext } from "react";
-import "./sportsList.css";
-import { Card, CardImg, CardDeck, CardLink, Spinner } from "reactstrap";
+import React, { useContext } from "react";
+import {
+    Card,
+    CardImg,
+    CardDeck,
+    CardLink,
+    Spinner,
+    UncontrolledTooltip
+} from "reactstrap";
 import { SportsContext } from "./SportsContext";
 import Axios from "axios";
 
 const SportsList = () => {
-    const [sportsList, setSportsList, isLoading, setIsLoading] = useContext(
-        SportsContext
-    );
+    const [sportsList, setSportsList, isLoading] = useContext(SportsContext);
     return (
-        <Fragment>
+        <div className="container-fluid">
             <h2 className="heading">Sports Lists</h2>
             {isLoading ? (
                 <Spinner
@@ -43,11 +47,18 @@ const SportsList = () => {
                                     href={link}
                                     target="_blank"
                                     className="sportsListLink"
+                                    id="UncontrolledTooltipExample"
                                 >
                                     {linkName.length > 10
                                         ? linkName.slice(0, 8) + "..."
                                         : linkName}
                                 </CardLink>
+                                <UncontrolledTooltip
+                                    placement="top"
+                                    target="UncontrolledTooltipExample"
+                                >
+                                    {linkName}
+                                </UncontrolledTooltip>
                                 <img
                                     src={require("../deleteImage.png")}
                                     style={{
@@ -107,7 +118,7 @@ const SportsList = () => {
                     Nothing Added...
                 </p>
             )}
-        </Fragment>
+        </div>
     );
 };
 

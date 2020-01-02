@@ -1,15 +1,19 @@
-import React, { Fragment, useContext } from "react";
-import "./socialList.css";
-import { Card, CardImg, CardDeck, CardLink, Spinner } from "reactstrap";
+import React, { useContext } from "react";
+import {
+    Card,
+    CardImg,
+    CardDeck,
+    CardLink,
+    Spinner,
+    UncontrolledTooltip
+} from "reactstrap";
 import { SocialContext } from "./SocialContext";
 import Axios from "axios";
 
 const SocialList = () => {
-    const [socialList, setSocialList, isLoading, setIsLoading] = useContext(
-        SocialContext
-    );
+    const [socialList, setSocialList, isLoading] = useContext(SocialContext);
     return (
-        <Fragment>
+        <div className="container-fluid">
             <h2 className="heading">Social Lists</h2>
             {isLoading ? (
                 <Spinner
@@ -43,11 +47,18 @@ const SocialList = () => {
                                     href={link}
                                     target="_blank"
                                     className="socialListLink"
+                                    id="UncontrolledTooltipExample"
                                 >
-                                    {linkName.length > 10
-                                        ? linkName.slice(0, 8) + "..."
+                                    {linkName.length > 11
+                                        ? linkName.slice(0, 10) + " ..."
                                         : linkName}
                                 </CardLink>
+                                <UncontrolledTooltip
+                                    placement="top"
+                                    target="UncontrolledTooltipExample"
+                                >
+                                    {linkName}
+                                </UncontrolledTooltip>
                                 <img
                                     src={require("../deleteImage.png")}
                                     style={{
@@ -107,7 +118,7 @@ const SocialList = () => {
                     Nothing Added...
                 </p>
             )}
-        </Fragment>
+        </div>
     );
 };
 

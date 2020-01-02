@@ -12,6 +12,16 @@ import Music from "./components/auth/protectedRoutes/Music/Music";
 import Movies from "./components/auth/protectedRoutes/Movies/Movies";
 import Logout from "./components/auth/Logout";
 import "./App.css";
+import { UserProfileProvider } from "./components/auth/protectedRoutes/Home/UserProfileContext";
+import { SocialProvider } from "./components/auth/protectedRoutes/Social/SocialContext";
+import { SportsProvider } from "./components/auth/protectedRoutes/Sports/SportsContext";
+import { MoviesProvider } from "./components/auth/protectedRoutes/Movies/MoviesContext";
+import { MusicProvider } from "./components/auth/protectedRoutes/Music/MusicContext";
+import PageNotFound from "./components/PageNotFound";
+import UserProfile from "./components/auth/protectedRoutes/Profile/UserProfile";
+import UserStats from "./components/auth/protectedRoutes/UserStats";
+import Others from "./components/auth/protectedRoutes/Others/Others";
+import { OthersProvider } from "./components/auth/protectedRoutes/Others/OthersContext";
 
 const App = () => {
     const [isAuth, setIsAuth] = useState(false);
@@ -23,56 +33,153 @@ const App = () => {
     }, [isAuth]);
 
     return (
-        <Fragment>
-            <Router>
-                <Switch>
-                    <Route exact path="/" component={Landing} />
-                    <Route
-                        exact
-                        path="/register"
-                        render={props => (
-                            <Register {...props} isAuth={isAuth} />
-                        )}
-                    />
-                    <Route
-                        exact
-                        path="/home"
-                        render={props => <Home {...props} isAuth={isAuth} />}
-                    />
-                    <Route
-                        exact
-                        path="/login"
-                        render={props => <Login {...props} isAuth={isAuth} />}
-                    />
-                    <Route
-                        exact
-                        path="/social"
-                        render={props => <Social {...props} isAuth={isAuth} />}
-                    />
-                    <Route
-                        exact
-                        path="/sports"
-                        render={props => <Sports {...props} isAuth={isAuth} />}
-                    />
-                    <Route
-                        exact
-                        path="/music"
-                        render={props => <Music {...props} isAuth={isAuth} />}
-                    />
-                    <Route
-                        exact
-                        path="/movies"
-                        render={props => <Movies {...props} isAuth={isAuth} />}
-                    />
-                    <Route
-                        exact
-                        path="/logout"
-                        render={props => <Logout {...props} isAuth={isAuth} />}
-                    />
-                    <Route exact path="/forbidden" component={Forbidden} />
-                </Switch>
-            </Router>
-        </Fragment>
+        <UserProfileProvider>
+            <SocialProvider>
+                <SportsProvider>
+                    <MoviesProvider>
+                        <MusicProvider>
+                            <OthersProvider>
+                                <Fragment>
+                                    <Router>
+                                        <Switch>
+                                            <Route
+                                                exact
+                                                path="/"
+                                                component={Landing}
+                                            />
+                                            <Route
+                                                exact
+                                                path="/register"
+                                                render={props => (
+                                                    <Register
+                                                        {...props}
+                                                        isAuth={isAuth}
+                                                    />
+                                                )}
+                                            />
+                                            <Route
+                                                exact
+                                                path="/home"
+                                                render={props => (
+                                                    <Home
+                                                        {...props}
+                                                        isAuth={isAuth}
+                                                    />
+                                                )}
+                                            />
+                                            <Route
+                                                exact
+                                                path="/login"
+                                                render={props => (
+                                                    <Login
+                                                        {...props}
+                                                        isAuth={isAuth}
+                                                    />
+                                                )}
+                                            />
+                                            <Route
+                                                exact
+                                                path="/social"
+                                                render={props => (
+                                                    <Social
+                                                        {...props}
+                                                        isAuth={isAuth}
+                                                    />
+                                                )}
+                                            />
+                                            <Route
+                                                exact
+                                                path="/sports"
+                                                render={props => (
+                                                    <Sports
+                                                        {...props}
+                                                        isAuth={isAuth}
+                                                    />
+                                                )}
+                                            />
+                                            <Route
+                                                exact
+                                                path="/music"
+                                                render={props => (
+                                                    <Music
+                                                        {...props}
+                                                        isAuth={isAuth}
+                                                    />
+                                                )}
+                                            />
+                                            <Route
+                                                exact
+                                                path="/movies"
+                                                render={props => (
+                                                    <Movies
+                                                        {...props}
+                                                        isAuth={isAuth}
+                                                    />
+                                                )}
+                                            />
+                                            <Route
+                                                exact
+                                                path="/others"
+                                                render={props => (
+                                                    <Others
+                                                        {...props}
+                                                        isAuth={isAuth}
+                                                    />
+                                                )}
+                                            />
+                                            <Route
+                                                exact
+                                                path="/logout"
+                                                render={props => (
+                                                    <Logout
+                                                        {...props}
+                                                        isAuth={isAuth}
+                                                    />
+                                                )}
+                                            />
+                                            <Route
+                                                exact
+                                                path="/profile"
+                                                render={props => (
+                                                    <UserProfile
+                                                        {...props}
+                                                        isAuth={isAuth}
+                                                    />
+                                                )}
+                                            />
+                                            <Route
+                                                exact
+                                                path="/stats"
+                                                render={props => (
+                                                    <UserStats
+                                                        {...props}
+                                                        isAuth={isAuth}
+                                                    />
+                                                )}
+                                            />
+                                            <Route
+                                                exact
+                                                path="/forbidden"
+                                                component={Forbidden}
+                                            />
+                                            <Route
+                                                path="/*"
+                                                render={props => (
+                                                    <PageNotFound
+                                                        {...props}
+                                                        isAuth={isAuth}
+                                                    />
+                                                )}
+                                            />
+                                        </Switch>
+                                    </Router>
+                                </Fragment>
+                            </OthersProvider>
+                        </MusicProvider>
+                    </MoviesProvider>
+                </SportsProvider>
+            </SocialProvider>
+        </UserProfileProvider>
     );
 };
 

@@ -7,14 +7,14 @@ import {
     Spinner,
     UncontrolledTooltip
 } from "reactstrap";
-import { MoviesContext } from "./MoviesContext";
+import { OthersContext } from "./OthersContext";
 import Axios from "axios";
 
-const MoviesList = () => {
-    const [moviesList, setMoviesList, isLoading] = useContext(MoviesContext);
+const OthersList = () => {
+    const [othersList, setOthersList, isLoading] = useContext(OthersContext);
     return (
         <div className="container-fluid">
-            <h2 className="heading">Movies Lists</h2>
+            <h2 className="heading">Others Lists</h2>
             {isLoading ? (
                 <Spinner
                     color="primary"
@@ -25,11 +25,11 @@ const MoviesList = () => {
                         margin: "0 auto"
                     }}
                 />
-            ) : moviesList.length ? (
-                moviesList.map(list => {
+            ) : othersList.length ? (
+                othersList.map(list => {
                     const { _id, link, linkName } = list;
                     return (
-                        <CardDeck key={_id} className="moviesListClass">
+                        <CardDeck key={_id} className="othersListClass">
                             <Card
                                 href={link}
                                 style={{
@@ -38,7 +38,7 @@ const MoviesList = () => {
                                 }}
                             >
                                 <CardImg
-                                    className="moviesListWord"
+                                    className="othersListWord"
                                     width="100px"
                                     src={link + "/faviconn.ico"}
                                     alt={linkName.charAt(0).toUpperCase()}
@@ -46,13 +46,13 @@ const MoviesList = () => {
                                 <CardLink
                                     href={link}
                                     target="_blank"
-                                    className="moviesListLink"
+                                    className="othersListLink"
                                     id="UncontrolledTooltipExample"
                                 >
                                     {linkName.length > 10
                                         ? linkName.slice(0, 8) + "..."
                                         : linkName}
-                                </CardLink>
+                                </CardLink>{" "}
                                 <UncontrolledTooltip
                                     placement="top"
                                     target="UncontrolledTooltipExample"
@@ -78,30 +78,30 @@ const MoviesList = () => {
                                             }
                                         };
                                         await Axios.delete(
-                                            `/api/movies/${_id}`,
+                                            `/api/others/${_id}`,
                                             config
                                         );
                                         //Get index
-                                        let moviesListCopy = moviesList.map(
+                                        let othersListCopy = othersList.map(
                                             list => list
                                         );
                                         for (
                                             let i = 0;
-                                            i < moviesListCopy.length;
+                                            i < othersListCopy.length;
                                             i++
                                         ) {
-                                            let movies = moviesListCopy[i];
-                                            if (movies._id === _id) {
-                                                moviesListCopy.splice(i, 1);
+                                            let others = othersListCopy[i];
+                                            if (others._id === _id) {
+                                                othersListCopy.splice(i, 1);
                                                 break;
                                             }
                                         }
-                                        setMoviesList(moviesListCopy);
+                                        setOthersList(othersListCopy);
                                         alert(
                                             `Successfully removed ${linkName}`
                                         );
                                     }}
-                                    alt=""
+                                    alt="Delete"
                                 />
                             </Card>
                         </CardDeck>
@@ -122,4 +122,4 @@ const MoviesList = () => {
     );
 };
 
-export default MoviesList;
+export default OthersList;

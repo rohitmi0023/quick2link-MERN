@@ -10,22 +10,22 @@ import {
     Alert
 } from "reactstrap";
 import Axios from "axios";
-import { MoviesContext } from "./MoviesContext";
+import { OthersContext } from "./OthersContext";
 
-const MoviesForm = () => {
+const OthersForm = () => {
     const [formData, setFormData] = useState({
         linkName: "",
         link: ""
     });
     const [handleErrors, setHandleErrors] = useState([]);
-    const [moviesList, setMoviesList] = useContext(MoviesContext);
+    const [othersList, setOthersList] = useContext(OthersContext);
     const { linkName, link } = formData;
     const onChange = e =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
     const token = localStorage.getItem("token");
     const handleSubmit = e => {
         e.preventDefault();
-        const moviesListForm = {
+        const othersListForm = {
             linkName,
             link
         };
@@ -35,12 +35,12 @@ const MoviesForm = () => {
                 "x-auth-token": `${token}`
             }
         };
-        const body = JSON.stringify(moviesListForm);
-        Axios.post("/api/movies", body, config)
+        const body = JSON.stringify(othersListForm);
+        Axios.post("/api/others", body, config)
             .then(res => {
                 console.log(res.data.lists[res.data.lists.length - 1]._id);
                 const newId = res.data.lists[res.data.lists.length - 1]._id;
-                setMoviesList([...moviesList, { _id: newId, link, linkName }]);
+                setOthersList([...othersList, { _id: newId, link, linkName }]);
             })
             .then(setFormData({ link: "", linkName: "" }))
             .catch(err => {
@@ -59,6 +59,7 @@ const MoviesForm = () => {
     return (
         <div className="container">
             <br />
+            <br />
             <Alert
                 color="warning"
                 style={{
@@ -71,8 +72,7 @@ const MoviesForm = () => {
                     ? handleErrors
                     : `Invalid credentials will be displayed here`}
             </Alert>
-            <br />
-            <Form onSubmit={e => handleSubmit(e)} className="moviesForm">
+            <Form onSubmit={e => handleSubmit(e)} className="socialForm">
                 <Row form>
                     <Col md={5}>
                         <FormGroup>
@@ -80,7 +80,7 @@ const MoviesForm = () => {
                             <Input
                                 type="text"
                                 name="linkName"
-                                placeholder="Ex. Netflix"
+                                placeholder="Ex. XYZ"
                                 onChange={e => onChange(e)}
                                 value={linkName}
                                 style={{
@@ -96,7 +96,7 @@ const MoviesForm = () => {
                             <Input
                                 type="text"
                                 name="link"
-                                placeholder="Ex. https://www.netflix.com/"
+                                placeholder="Ex. https://www.XYZ.com/"
                                 onChange={e => onChange(e)}
                                 value={link}
                                 style={{
@@ -113,4 +113,4 @@ const MoviesForm = () => {
     );
 };
 
-export default MoviesForm;
+export default OthersForm;

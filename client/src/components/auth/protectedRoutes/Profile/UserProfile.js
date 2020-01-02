@@ -1,21 +1,19 @@
 import React, { Fragment } from "react";
 import { Redirect } from "react-router-dom";
 import AuthNavBar from "../../../layout/AuthNavBar";
-import "./index.css";
-import MusicForm from "./MusicForm";
-import MusicList from "./MusicList";
+import UserProfileData from "./UserProfileData";
 
-const Music = props => {
+const UserProfile = props => {
     if (props.isAuth === false) {
         return <Redirect to="/forbidden" />;
     }
     return (
         <Fragment>
             <AuthNavBar />
-            <MusicForm />
-            <MusicList />
+            <br />
+            <UserProfileData />
         </Fragment>
     );
 };
 
-export default Music;
+export default UserProfile;

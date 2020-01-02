@@ -17,6 +17,7 @@ app.use("/api/social", require("./routes/api/social"));
 app.use("/api/music", require("./routes/api/music"));
 app.use("/api/sports", require("./routes/api/sports"));
 app.use("/api/movies", require("./routes/api/movies"));
+app.use("/api/others", require("./routes/api/others"));
 
 app.get("/", (req, res) => res.send(`API started..`));
 
