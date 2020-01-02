@@ -1,33 +1,33 @@
 {
-	"name": "quick2link-mern",
-	"version": "1.0.0",
-	"description": "MERN version of my quick2link project",
-	"main": "index.js",
-	"dependencies": {
-		"bcryptjs": "^2.4.3",
-		"config": "^3.2.0",
-		"express": "^4.17.1",
-		"express-validator": "^6.1.1",
-		"gravatar": "^1.8.0",
-		"http-proxy-middleware": "^0.19.1",
-		"jsonwebtoken": "^8.5.1",
-		"jwt-decode": "^2.2.0",
-		"mongoose": "^5.6.4",
-		"react": "^16.8.6",
-		"react-dom": "^16.8.6",
-		"reactstrap": "^8.0.1",
-		"request": "^2.88.0"
-	},
-	"devDependencies": {
-		"concurrently": "^4.1.2",
-		"nodemon": "^1.19.2"
-	},
-	"scripts": {
-		"start": "nodemon server.js",
-		"server": "nodemon server --ignore client",
-		"client": "npm start --prefix client",
-		"dev": "concurrently \"npm run server\" \"npm run client\""
-	},
-	"author": "Rohit Mishra",
-	"license": "MIT"
+    "name": "quick2link-mern",
+    "version": "1.0.0",
+    "description": "MERN version of my quick2link project",
+    "main": "index.js",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "config": "^3.2.0",
+        "express": "^4.17.1",
+        "express-validator": "^6.1.1",
+        "gravatar": "^1.8.0",
+        "http-proxy-middleware": "^0.19.1",
+        "jsonwebtoken": "^8.5.1",
+        "jwt-decode": "^2.2.0",
+        "mongoose": "^5.6.4",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "reactstrap": "^8.0.1",
+        "request": "^2.88.0"
+    },
+    "devDependencies": {
+        "concurrently": "^4.1.2",
+        "nodemon": "^1.19.2"
+    },
+    "scripts": {
+        "start": "node server.js",
+        "server": "nodeserver --ignore client",
+        "client": "npm start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\""
+    },
+    "author": "Rohit Mishra",
+    "license": "MIT"
 }
