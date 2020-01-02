@@ -1,1 +1,0 @@
-* Responsive Navbar i.e. compatible on all devices. 
