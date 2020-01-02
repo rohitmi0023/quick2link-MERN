@@ -3,6 +3,10 @@
     "version": "1.0.0",
     "description": "MERN version of my quick2link project",
     "main": "index.js",
+    "engines": {
+        "node": "10.16.0",
+        "npm": "6.9.0"
+    },
     "dependencies": {
         "bcryptjs": "^2.4.3",
         "config": "^3.2.0",
@@ -24,9 +28,10 @@
     },
     "scripts": {
         "start": "node server.js",
-        "server": "nodeserver --ignore client",
+        "server": "nodemon server --ignore client",
         "client": "npm start --prefix client",
-        "dev": "concurrently \"npm run server\" \"npm run client\""
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
     },
     "author": "Rohit Mishra",
     "license": "MIT"
