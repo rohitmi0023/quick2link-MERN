@@ -1,5 +1,4 @@
 const express = require("express");
-const path = require("path");
 
 const connectDB = require("./config/db");
 
@@ -20,7 +19,7 @@ app.use("/api/sports", require("./routes/api/sports"));
 app.use("/api/movies", require("./routes/api/movies"));
 app.use("/api/others", require("./routes/api/others"));
 
-//Serve static assests if in production
+// Serve static assests if in production
 if (process.env.NODE_ENV === "production") {
     //Set static folder
     app.use(express.static(path.join(__dirname, "client/build")));
@@ -33,4 +32,4 @@ app.get("/", (req, res) => res.send(`API started..`));
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(console.log(`Server started!`));
+app.listen(PORT, () => console.log(`Express server is up and running!`));
