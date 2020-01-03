@@ -1,10 +1,14 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useContext, Fragment, useEffect } from "react";
+import { Redirect } from "react-router-dom";
+import { UserProfileContext } from "./protectedRoutes/Home/UserProfileContext";
 
-const Logout = ({ isAuth }) => {
-	localStorage.removeItem('token');
-	isAuth = false;
-	return <Redirect to='/' />;
+const Logout = () => {
+    const [setUserInfo] = useContext(UserProfileContext);
+    localStorage.removeItem("token");
+    const handleSubmit = () => {
+        setUserInfo([]);
+    };
+    return <button onClick={handleSubmit}>Log Out</button>;
 };
 
 export default Logout;

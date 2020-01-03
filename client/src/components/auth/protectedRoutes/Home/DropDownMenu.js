@@ -11,8 +11,8 @@ import "./dropdownMenuCss.css";
 
 const DropDownMenu = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const toggle = () => setDropdownOpen(prevState => !prevState);
     const [userInfo] = useContext(UserProfileContext);
+    const toggle = () => setDropdownOpen(prevState => !prevState);
     return (
         <Fragment>
             {userInfo.map(list => {
@@ -65,11 +65,7 @@ const DropDownMenu = () => {
                                 Your stats
                             </DropdownItem>
                             <DropdownItem divider />
-                            <DropdownItem
-                                className="dropDownItemCss"
-                                tag={Link}
-                                to="/logout"
-                            >
+                            <DropdownItem className="dropDownItemCss" href="/">
                                 Log Out
                             </DropdownItem>
                         </DropdownMenu>

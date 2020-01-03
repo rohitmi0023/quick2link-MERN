@@ -5,13 +5,13 @@ export const UserProfileContext = createContext();
 
 export const UserProfileProvider = props => {
     const [userInfo, setUserInfo] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
     const getUserInfo = () => {
         const token = localStorage.getItem("token");
+        console.log(token);
         const config = {
             headers: {
-                "Content-Type": "application/json",
-                "x-auth-token": `${token}`
+                "x-auth-token": `${token}`,
+                "Content-Type": "application/json"
             }
         };
         Axios.get("/api/auth", config).then(res => {
@@ -22,9 +22,7 @@ export const UserProfileProvider = props => {
         getUserInfo();
     }, []);
     return (
-        <UserProfileContext.Provider
-            value={[userInfo, setUserInfo, isLoading, setIsLoading]}
-        >
+        <UserProfileContext.Provider value={[userInfo, setUserInfo]}>
             {props.children}
         </UserProfileContext.Provider>
     );
