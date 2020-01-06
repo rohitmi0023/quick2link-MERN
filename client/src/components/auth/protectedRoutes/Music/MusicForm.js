@@ -38,9 +38,9 @@ const MusicForm = () => {
         const body = JSON.stringify(musicListForm);
         Axios.post("/api/music", body, config)
             .then(res => {
-                console.log(res.data.lists[res.data.lists.length - 1]._id);
                 const newId = res.data.lists[res.data.lists.length - 1]._id;
                 setMusicList([...musicList, { _id: newId, link, linkName }]);
+                alert(`Successfully added ${formData.linkName}`);
             })
             .then(setFormData({ link: "", linkName: "" }))
             .catch(err => {
@@ -71,7 +71,6 @@ const MusicForm = () => {
                     ? handleErrors
                     : `Invalid credentials will be displayed here`}
             </Alert>
-            <br />
             <Form onSubmit={e => handleSubmit(e)} className="musicForm">
                 <Row form>
                     <Col md={5}>

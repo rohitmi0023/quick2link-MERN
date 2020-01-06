@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import {
     Card,
-    CardImg,
     CardDeck,
     CardLink,
     Spinner,
@@ -37,12 +36,9 @@ const MoviesList = () => {
                                     borderColor: "#333"
                                 }}
                             >
-                                <CardImg
-                                    className="moviesListWord"
-                                    width="100px"
-                                    src={link + "/faviconn.ico"}
-                                    alt={linkName.charAt(0).toUpperCase()}
-                                />
+                                <span className="moviesListWord">
+                                    {linkName.charAt(0).toUpperCase()}
+                                </span>
                                 <CardLink
                                     href={link}
                                     target="_blank"

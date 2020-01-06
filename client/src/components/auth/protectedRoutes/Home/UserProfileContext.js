@@ -7,7 +7,6 @@ export const UserProfileProvider = props => {
     const [userInfo, setUserInfo] = useState([]);
     const getUserInfo = () => {
         const token = localStorage.getItem("token");
-        console.log(token);
         const config = {
             headers: {
                 "x-auth-token": `${token}`,

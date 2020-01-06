@@ -38,9 +38,9 @@ const SportsForm = () => {
         const body = JSON.stringify(sportsListForm);
         Axios.post("/api/sports", body, config)
             .then(res => {
-                console.log(res.data.lists[res.data.lists.length - 1]._id);
                 const newId = res.data.lists[res.data.lists.length - 1]._id;
                 setSportsList([...sportsList, { _id: newId, link, linkName }]);
+                alert(`Successfully added ${formData.linkName}`);
             })
             .then(setFormData({ link: "", linkName: "" }))
             .catch(err => {
@@ -71,7 +71,6 @@ const SportsForm = () => {
                     ? handleErrors
                     : `Invalid credentials will be displayed here`}
             </Alert>
-            <br />
             <Form onSubmit={e => handleSubmit(e)} className="sportsForm">
                 <Row form>
                     <Col md={5}>

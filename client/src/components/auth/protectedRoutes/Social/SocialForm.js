@@ -32,6 +32,7 @@ const SocialForm = () => {
             .then(res => {
                 const newId = res.data.lists[res.data.lists.length - 1]._id;
                 setSocialList([...socialList, { _id: newId, link, linkName }]);
+                alert(`Successfully added ${formData.linkName}`);
             })
             .then(setFormData({ link: "", linkName: "" }))
             .catch(err => {

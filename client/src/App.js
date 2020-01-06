@@ -19,7 +19,7 @@ import { MoviesProvider } from "./components/auth/protectedRoutes/Movies/MoviesC
 import { MusicProvider } from "./components/auth/protectedRoutes/Music/MusicContext";
 import PageNotFound from "./components/PageNotFound";
 import UserProfile from "./components/auth/protectedRoutes/Profile/UserProfile";
-import UserStats from "./components/auth/protectedRoutes/UserStats";
+import UserStats from "./components/auth/protectedRoutes/UserStats/UserStats";
 import Others from "./components/auth/protectedRoutes/Others/Others";
 import { OthersProvider } from "./components/auth/protectedRoutes/Others/OthersContext";
 
@@ -66,7 +66,7 @@ const App = () => {
                                     <Social {...props} isAuth={isAuth} />
                                 )}
                             />
-                        </SocialProvider>{" "}
+                        </SocialProvider>
                         <SportsProvider>
                             <Route
                                 exact

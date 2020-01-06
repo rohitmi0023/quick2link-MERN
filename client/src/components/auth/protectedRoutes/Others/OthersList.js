@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import {
     Card,
-    CardImg,
     CardDeck,
     CardLink,
     Spinner,
@@ -37,12 +36,9 @@ const OthersList = () => {
                                     borderColor: "#333"
                                 }}
                             >
-                                <CardImg
-                                    className="othersListWord"
-                                    width="100px"
-                                    src={link + "/faviconn.ico"}
-                                    alt={linkName.charAt(0).toUpperCase()}
-                                />
+                                <span className="othersListWord">
+                                    {linkName.charAt(0).toUpperCase()}
+                                </span>
                                 <CardLink
                                     href={link}
                                     target="_blank"
@@ -52,7 +48,7 @@ const OthersList = () => {
                                     {linkName.length > 10
                                         ? linkName.slice(0, 8) + "..."
                                         : linkName}
-                                </CardLink>{" "}
+                                </CardLink>
                                 <UncontrolledTooltip
                                     placement="top"
                                     target="UncontrolledTooltipExample"

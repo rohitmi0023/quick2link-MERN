@@ -1,18 +1,12 @@
-import React, { useContext, Fragment } from "react";
-import { Redirect } from "react-router-dom";
-import { UserProfileContext } from "./Home/UserProfileContext";
+import React, { useContext, useEffect } from "react";
 import { Card, CardDeck, CardSubtitle } from "reactstrap";
-import "./userStats.css";
-import AuthNavBar from "../../layout/AuthNavBar";
+import { UserProfileContext } from "../Home/UserProfileContext";
+import UserProfile from "../Profile/UserProfile";
 
-const UserStats = props => {
+const ListTotal = () => {
     const [userInfo] = useContext(UserProfileContext);
-    if (props.isAuth === false) {
-        return <Redirect to="/forbidden" />;
-    }
     return (
-        <Fragment>
-            <AuthNavBar />
+        <div>
             {userInfo.map(list => {
                 const {
                     _id,
@@ -118,8 +112,8 @@ const UserStats = props => {
                     </div>
                 );
             })}
-        </Fragment>
+        </div>
     );
 };
 
-export default UserStats;
+export default ListTotal;

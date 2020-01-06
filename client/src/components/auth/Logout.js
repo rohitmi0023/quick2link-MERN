@@ -1,5 +1,4 @@
-import React, { useContext, Fragment, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useContext } from "react";
 import { UserProfileContext } from "./protectedRoutes/Home/UserProfileContext";
 
 const Logout = () => {

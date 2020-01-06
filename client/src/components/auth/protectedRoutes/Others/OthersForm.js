@@ -38,9 +38,9 @@ const OthersForm = () => {
         const body = JSON.stringify(othersListForm);
         Axios.post("/api/others", body, config)
             .then(res => {
-                console.log(res.data.lists[res.data.lists.length - 1]._id);
                 const newId = res.data.lists[res.data.lists.length - 1]._id;
                 setOthersList([...othersList, { _id: newId, link, linkName }]);
+                alert(`Successfully added ${formData.linkName}`);
             })
             .then(setFormData({ link: "", linkName: "" }))
             .catch(err => {
@@ -58,7 +58,6 @@ const OthersForm = () => {
     };
     return (
         <div className="container">
-            <br />
             <br />
             <Alert
                 color="warning"

@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import {
     Card,
-    CardImg,
     CardDeck,
     CardLink,
     Spinner,
@@ -31,18 +30,14 @@ const SocialList = () => {
                     return (
                         <CardDeck key={_id} className="socialListClass">
                             <Card
-                                href={link}
                                 style={{
                                     backgroundColor: "#333",
                                     borderColor: "#333"
                                 }}
                             >
-                                <CardImg
-                                    className="socialListWord"
-                                    width="100px"
-                                    src={link + "/faviconn.ico"}
-                                    alt={linkName.charAt(0).toUpperCase()}
-                                />
+                                <span className="socialListWord">
+                                    {linkName.charAt(0).toUpperCase()}
+                                </span>
                                 <CardLink
                                     href={link}
                                     target="_blank"

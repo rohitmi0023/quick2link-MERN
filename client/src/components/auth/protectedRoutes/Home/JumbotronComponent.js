@@ -24,12 +24,14 @@ const JumbotronComponent = () => {
                                 Here's how you can use this website :
                                 <br />
                                 For Example, if you visit Facebook too often or
-                                you want to save an article read in Medium(tech)
-                                ,select the right category from our Social,
-                                Movies, Sports, Music and Others category, after
-                                that just copy your website's link in linkName
-                                category and give a suitable name/heading for
-                                the link under link category.
+                                you want to save an article read in
+                                Medium(tech), select the right category from our
+                                Social, Movies, Sports, Music and Others
+                                category, after that just copy your website's
+                                link under linkName category and give a suitable
+                                name/heading for the link under link category.
+                                After this you can easily access all the links
+                                quickly and easily from here.
                                 <br />
                                 <br />
                                 Scope of this website :
@@ -38,10 +40,10 @@ const JumbotronComponent = () => {
                                 useful therefore I will surely keep adding more
                                 and more features to it. I love dark mode and
                                 hence I have started with it only. Surely I will
-                                add light mode as well and it's my next
-                                priority. Apart from it, I have thought of
-                                adding some other intersting features to it in
-                                the next update.
+                                add light mode as well which my next priority.
+                                Apart from it, I have thought of adding some
+                                other intersting features to it in the next
+                                update.
                                 <b>This is just the beginning!</b>
                             </p>
                         </Jumbotron>
